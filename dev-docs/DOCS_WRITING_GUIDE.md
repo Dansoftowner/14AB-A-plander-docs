@@ -3,7 +3,7 @@
 A dokumentációk megírása `Markdown` formátumban történik.  
 
 ## Struktúra
-A projekt dokumentációja a [plander-docs](https://github.com/Dansoftowner/plander-docs) repository-ban található.
+A projekt dokumentációja a [plander-docs](https://github.com/Dansoftowner/14AB-A-plander-docs) repository-ban található.
 
 A könyvtár-struktúra a következő:
 - `/dev-docs`: kifejezetten a fejlesztéssel kapcsolatos útmutatások, leírások (code-style, workflow stb.)
