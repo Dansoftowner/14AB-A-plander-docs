@@ -13,5 +13,5 @@
 
 ---
 
-__A fentieken kívűl más label használata esetén nem biztosított a probléma megoldása!__
+**A fentieken kívűl más label használata esetén nem biztosított a probléma megoldása!**
 
