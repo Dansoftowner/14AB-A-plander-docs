@@ -10,6 +10,9 @@
 -  `invalid` - A felmerült hiba érvénytelennek jelölve a fejlesztő által
 -  `question` - Egyszerű felmerülő kérdés
 -  `attention` - Az adott probléma további figyelmet igényel
+-  `frontend` - A jelölővel a frontend-el kapcsolatos témákat jelölhetjük meg
+-  `backend` - A backend-el kapcsolatos jelölésekre alkalmas
+-  `mobile` - A mobilverzió azonosítására alkalmas jelölő
 
 ---
 
