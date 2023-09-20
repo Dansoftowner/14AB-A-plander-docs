@@ -10,12 +10,27 @@ Ahhoz, hogy átfogóan tudjuk a megoldandó feladatokat rendszerezni, a [Vizsgar
 ](https://github.com/users/Dansoftowner/projects/1) nevű Github projekt felületét használjuk.  
 **Itt hozzuk létre az issue-kat, nem közvetlenül a repókban!**
 
+### Label-ek (címkék) használata
+
+  A labeleket minden, a projekthez társított repository-ban eszerint a minta alapján kell beállítani, a fejlesztés és hibakeresés megkönnyítésének érdekében!
+
+#### A label-ek és jelentéseik
+-  `documentation` - Dokumentációkkal kapcsolatos megfigyelések jelölésére használható
+-  `enhancement` - Új funkcióval kapcsolatos kérés
+-  `bug` - Egy meglévő funkcióval felmerülő hiba/ bug
+-  `wontfix`- A ki nem javítandó elem megjelölésére szolgál
+-  `invalid` - A felmerült hiba érvénytelennek jelölve a fejlesztő által
+-  `question` - Egyszerű felmerülő kérdés
+-  `attention` - Az adott probléma további figyelmet igényel
+
+**A fentieken kívűl más label használata esetén nem biztosított a probléma megoldása!**
+
 ## Branch-ek
 - `main`: ebbe a branch-be kerül a legújabb release, **ide közvetlenül sosem dolgozunk!**
 - `dev`: ezt használjuk a "main-line" munkára, innen hajtunk végre *merge*-t a `main`-be, amikor elkészül a következő verzió
 
 **Közvetlenül a `dev`-be sem *commit*olunk, mindenki ideiglenes branch-et hoz létre a saját módosításához.**
-Amikor valaki végzett egy feladattal, akkor készít egy *pull request*-et a `dev` branch-be.  
+Amikor valaki végzett egy feladattal, akkor készít egy *pull request*-et a `dev` branch-be. ***(Fontos, hogy a PR-ban csak az adott feladattal kapcsolatos változtatások  legyenek.)***
 Ahhoz, hogy a *merge* megtörténhessen, minden esetben a *reviewer*-nek jóvá kell hagynia a módosításokat, de ha hibát vesz észre, élhet azzal a jogával is, hogy további módosításokat vár el a *pull request* feladójától.  
 **Miután a *merge* megtörtént, az ideiglenes branch-et kitöröljük.**
 > Ha az adott fejlesztést egy Github Issue keretében végezzük el, a Github automatikusan felajánlja
@@ -29,21 +44,7 @@ A branch nevének logikailag tükröznie kell a hivatását! (pl.: `implement-pd
 
 ## Commit üzenetek
 A *commit* üzeneteket angolul fogalmazzuk meg, az első szó nagy kezdőbetűs.
+Az üzeneteket `gitmoji`-val kezdjük. Ügyeljünk arra, hogy redundás információt
+ne tartalmazzon az üzenet (rossz példa: `:bug: Fix bug`).
 
-## Label-ek (címkék) használata
-
-  A labeleket minden, a projekthez társított repository-ban eszerint a minta alapján kell beállítani, a fejlesztés és hibakeresés megkönnyítésének érdekében!
-
-### A label-ek és jelentéseik
--  `documentation` - Dokumentációkkal kapcsolatos megfigyelések jelölésére használható
--  `enhancement` - Új funkcióval kapcsolatos kérés
--  `bug` - Egy meglévő funkcióval felmerülő hiba/ bug
--  `wontfix`- A ki nem javítandó elem megjelölésére szolgál
--  `invalid` - A felmerült hiba érvénytelennek jelölve a fejlesztő által
--  `question` - Egyszerű felmerülő kérdés
--  `attention` - Az adott probléma további figyelmet igényel
-
----
-
-**A fentieken kívűl más label használata esetén nem biztosított a probléma megoldása!**
-
+Az üzenetek tömören, lényegre törően legyenek megfogalmazva (ez nylvánvalóan csak akkor lehetséges, ha a commit tartalma logikailag koherens).
