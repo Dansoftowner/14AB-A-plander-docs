@@ -50,4 +50,4 @@ A *commit* üzeneteket angolul fogalmazzuk meg, az első szó nagy kezdőbetűs.
 Az üzeneteket [`gitmoji`](https://gitmoji.dev/)-val kezdjük. Ügyeljünk arra, hogy redundás információt
 ne tartalmazzon az üzenet (rossz példa: `:bug: Fix bug`).
 
-Az üzenetek tömören, lényegre törően legyenek megfogalmazva (ez nylvánvalóan csak akkor lehetséges, ha a commit tartalma logikailag koherens).
+Az üzenetek tömören, lényegre törően legyenek megfogalmazva (ez nyilvánvalóan csak akkor lehetséges, ha a commit tartalma logikailag koherens).
