@@ -6,7 +6,7 @@ A dokumentációk megírása `Markdown` formátumban történik.
 A projekt dokumentációja a [plander-docs](https://github.com/Dansoftowner/14AB-A-plander-docs) repository-ban található.
 
 A könyvtár-struktúra a következő:
-- `/dev-docs`: kifejezetten a fejlesztéssel kapcsolatos útmutatások, leírások (code-style, workflow stb.)
+- `/dev-docs`: kifejezetten a fejlesztéssel kapcsolatos útmutatások, leírások (code-style, workflow, stb.)
 - `/docs`: a program működésével, felépítésével és használatával kapcsolatos dokumentációk 
 
 ## Nyelv
@@ -17,7 +17,7 @@ Habár maga a dokumentáció magyar nyelvű, minden másban az angol nyelvet igy
 Pl. `MY_DOCUMENT.md` _(az `.md` kiterjesztést viszont kis betűvel írjuk)._
 
 ## Egyéb erőforrások
-Előfordulhat, hogy a dokumentációhoz más erőforrások (pl.: képek) is szükségesek. Ezeket minding a dokumentációs fájl könyvtárában található `/assets` alkönyvtárba helyezzük el.
+Előfordulhat, hogy a dokumentációhoz más erőforrások (pl.: képek) is szükségesek. Ezeket mindig a dokumentációs fájl könyvtárában található `/assets` alkönyvtárba helyezzük el.
 
 ## Markdown használati utasítások
 Mivel a dokumentációk megírásában is egységre törekedünk, bizonyos `markdown` jelölőkről is közös megállapodás született.
