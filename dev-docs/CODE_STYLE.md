@@ -1,6 +1,19 @@
 # Kódolási stílusok
 
-A kód írásakor nagyon fontos, hogy egységességre törekedjünk. Természetesen az adott programozási nyelv (pl.: typescript) és az adott technológia (pl.: React) konvencióit betartjuk.
+A kód írásakor nagyon fontos, hogy egységességre törekedjünk. 
+
+Természetesen az adott programozási nyelv (pl.: typescript) és az adott technológia (pl.: React) konvencióit betartjuk. Tehát ügyeljünk például arra, hogy a függvények/változók neveihez a megfelelő `case`-t használjuk (pl.: JS-ben a függvények nevei `camelCase`-ben íródnak).
+
+## Általános 
+- Értelmes, leíró változóneveket használunk (kivéve ciklusváltozók)
+- A `boolean` típusú változók `is`, `has` vagy `can` előtaggal kezdődnek
+- A függvényeknek művelet leíró neveket adjunk! (általában igéket)
+- Kommentekből a lehető legkevesebb legyen, csak ott, ahol nagyon muszáj
+  - **Kikomentelt kódot ne hagyjunk!**
+- Összetartozó részeket válasszuk el más összetartozó részektől egy üres sorral
+- Ne ismételjük meg ugyanazt a logikát többször (törekedjünk a kód újrahasználhatóságára)
+- A behúzásokhoz **tab helyett 4 space-t használunk**
+- Kisebb fájlokat könnyebb megérteni (200 sor/fájl az ideális)
 
 ## A kód nyelve
 
@@ -10,7 +23,31 @@ hogy a későbbiekben ne okozzon nagy problémát egy másik felhasználói nyel
 
 ## Javascript & Typescript
 
-- **Tab helyett 4 space-t használunk**
+- `var`-t nem használunk, kizárólag `const` és `let`-t
+
+
+A kód formázásához [Prettier](https://prettier.io/)-t használunk.   
+ 
 - Sorok végét nem zárjuk pontosvesszőkkel
-- Szimpla idézőjeleket használunk a _string literal_-okhoz
-- A `boolean` típusú változók `is`, `has` vagy `can` előtaggal kezdődnek
+- Szimpla idézőjeleket (`''`) használunk a _string literal_-okhoz
+- String összefűzés helyett `template string`-et használunk (pl.: ``` `Number of items: ${counter}` ```)
+- Többsoros, vesszővel elválasztott szerkezetek esetén kirakjuk az utolsó vesszőt ([miért?](https://www.30secondsofcode.org/js/s/the-case-for-trailing-commas/))  
+  pl. `object literal`: 
+  ```js
+  const config = {
+    encoding: 'UTF-8',
+    useFs: true,
+  }
+  ```
+Ezeken túl a Prettier alapbeállításaira támaszkodunk.  
+
+A Prettier config-ja a következő (`.prettierrc.json`):
+```json
+{
+    "tabWidth": 4,
+    "trailingComma": "all",
+    "semi": false,
+    "singleQuote": true
+}
+```
+***Commit*olás előtt mindenképp formázzuk a forráskódot**, a legjobb az, hogyha beállítjuk a VSCode-ban a mentéskor való automatikus formázást.
