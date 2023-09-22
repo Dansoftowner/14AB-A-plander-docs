@@ -13,7 +13,7 @@ Természetesen az adott programozási nyelv (pl.: typescript) és az adott techn
 - Összetartozó részeket válasszuk el más összetartozó részektől egy üres sorral
 - Ne ismételjük meg ugyanazt a logikát többször (törekedjünk a kód újrahasználhatóságára)
 - A behúzásokhoz **tab helyett 4 space-t használunk**
-- Kisebb fájlokat könnyebb megérteni (200 sor/fájl az ideális)
+- Kisebb fájlokat könnyebb megérteni, így amit lehetséges, tároljuk külön fájlokban
 
 ## A kód nyelve
 
