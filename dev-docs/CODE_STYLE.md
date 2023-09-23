@@ -2,18 +2,18 @@
 
 A kód írásakor nagyon fontos, hogy egységességre törekedjünk. 
 
-Természetesen az adott programozási nyelv (pl.: typescript) és az adott technológia (pl.: React) konvencióit betartjuk. Tehát ügyeljünk például arra, hogy a függvények/változók neveihez a megfelelő `case`-t használjuk (pl.: JS-ben a függvények nevei `camelCase`-ben íródnak).
+Természetesen az adott programozási nyelv (pl.: TypeScript) és az adott technológia (pl.: React) konvencióit betartjuk. Tehát ügyeljünk például arra, hogy a függvények/változók neveihez a megfelelő `case`-t használjuk (pl.: JavaScriptben a függvények nevei `camelCase`-ben íródnak).
 
 ## Általános 
 - Értelmes, leíró változóneveket használunk (kivéve ciklusváltozók)
 - A `boolean` típusú változók `is`, `has` vagy `can` előtaggal kezdődnek
-- A függvényeknek művelet leíró neveket adjunk! (általában igéket)
-- Kommentekből a lehető legkevesebb legyen, csak ott, ahol nagyon muszáj
+- A függvényeknek művelet leíró neveket ad, általában igéket
+- Kommentekből a lehető legkevesebbet hagyunk a kódban, csak ott, ahol nagyon muszáj
   - **Kikomentelt kódot ne hagyjunk!**
-- Összetartozó részeket válasszuk el más összetartozó részektől egy üres sorral
-- Ne ismételjük meg ugyanazt a logikát többször (törekedjünk a kód újrahasználhatóságára)
-- A behúzásokhoz **tab helyett 4 space-t használunk**
-- Kisebb fájlokat könnyebb megérteni, így amit lehetséges, tároljuk külön fájlokban
+- Az összetartozó kódrészeket egy üres sorral választjuk el más összetartozó kódrészektől 
+- Nem ismételjük meg ugyanazt a logikát többször, törekedszünk a kód újrahasználhatóságára
+- A behúzásokhoz **`Tab` helyett négy `Space`-t használunk**
+- Kisebb fájlokat könnyebb megérteni, így amit lehetséges, külön fájlokban tárolunk 
 
 ## A kód nyelve
 
@@ -21,7 +21,7 @@ A kódban angol nyelvű kifejezéseket használunk. A változónevek és a komme
 A felhasználói felület - még akkor is, ha csak egy nyelv igényelt - mindenképp internacionalizálható kell legyen (`i18n`),
 hogy a későbbiekben ne okozzon nagy problémát egy másik felhasználói nyelv támogatása.
 
-## Javascript & Typescript
+## JavaScript & TypeScript
 
 - `var`-t nem használunk, kizárólag `const` és `let`-t
 
@@ -50,4 +50,4 @@ A Prettier config-ja a következő (`.prettierrc.json`):
     "singleQuote": true
 }
 ```
-***Commit*olás előtt mindenképp formázzuk a forráskódot**, a legjobb az, hogyha beállítjuk a VSCode-ban a mentéskor való automatikus formázást.
+***Commit*olás előtt mindenképp formázzuk a forráskódot**, a legjobb az, hogyha beállítjuk a VSCode-ban a mentéskor való automatikus formázást!
