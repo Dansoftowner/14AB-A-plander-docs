@@ -7,7 +7,7 @@ Természetesen az adott programozási nyelv (pl.: TypeScript) és az adott techn
 ## Általános 
 - Értelmes, leíró változóneveket használunk (kivéve ciklusváltozók)
 - A `boolean` típusú változók `is`, `has` vagy `can` előtaggal kezdődnek
-- A függvényeknek művelet leíró neveket ad, általában igéket
+- A függvényeknek művelet leíró neveket adunk, általában igéket
 - Kommentekből a lehető legkevesebbet hagyunk a kódban, csak ott, ahol nagyon muszáj
   - **Kikomentelt kódot ne hagyjunk!**
 - Az összetartozó kódrészeket egy üres sorral választjuk el más összetartozó kódrészektől 
