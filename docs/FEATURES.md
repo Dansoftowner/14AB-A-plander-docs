@@ -60,3 +60,6 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 ### Új tag regisztrálása
  Az egyesület vezetője egy űrlap segítségével tud új tagokat felvenni, ilyenkor azonban még nem biztos, hogy az újonnan regisztrált tag rendelkezik *polgárőrségi igazolvánnyal*, ami az alapértelmezett jelszó. Ebben az esetben az egyesület vezetője állíthat egy ideiglenes jelszót, amit később meg kell változtatnia a tagnak. `?`
 
+ ### Napló internet nélkül probléma
+Lehetővé kell tenni, hogy szolgálatvégzés alatt is módosítható legyen a szolgálati napló. Nem feltétezhető mobilnet, emiatt offline állapotban is lehessen szerkeszteni a naplóbejegyzést, majd amikor van internet kapcsolat (*vélhetően a szolgálat végén*), ez töltődjön fel az adatbázisra.
+
