@@ -14,14 +14,21 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 ### Bejelentkezés
 - Az összes felvett egyesület legördülő listában jelenik meg
 - Az egyesület kiválasztása után a szolgálati igazolvány első pár számjegye (*ami az egyesületet, települést jelenti*) automatikusan beíródik.
-- Remember me`?` funkció
+- Remember me funkció
 - Sikeres bejelentkezés után átirányítás a kezdőlapra (*Főoldal*)
   
 ### Főoldal - Webes verzió!
 - A képernyő baloldalán a menüpontok választhatóak ki
-   - Admin esetén a beállítások fül is megjelenik
+   - Admin esetén az `admin fül` fül is megjelenik
 - A jobb oldalon egy üzenőfal van, ide mindenki(*vagy csak adott `role`*) írhat fontos közleményeket
 - Aki a bejelentkezés idejében szolgálatban van, lássa ezt a főoldalon valahol
+
+### Főoldal - kisméret (*mobil*)
+- Menüsáv jelenik meg, benne:
+  - Menü felirat
+  - Hamburgermenü, ami a teljes oldalra kinyílik és az összes elérhető menüpont megjelenik
+- A kinyílt menü az egyik fenti sarokban lévő `x` gombbal lehet elrejteni, vagy ha kiválasztunk egy menüpontot
+- A főoldal alapesetben csak az üzenőfalon megjelenő friss hírek látszanak majd
 
 ### Szolgálat tervezés
 - Calendar kinézet, mindenki számára megtekinthető, de nem mindenki szerkesztheti
@@ -38,7 +45,7 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 
 ### Beállítások
 - téma állítása
-- nyelv`?` állítása
+- nyelv állítása
 - jelszómódosítás vagy akár teljes profil szerkesztése (*pl. új lakcím miatt*)`?`
 
 ### Admin fül
@@ -52,3 +59,4 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 
 ### Új tag regisztrálása
  Az egyesület vezetője egy űrlap segítségével tud új tagokat felvenni, ilyenkor azonban még nem biztos, hogy az újonnan regisztrált tag rendelkezik *polgárőrségi igazolvánnyal*, ami az alapértelmezett jelszó. Ebben az esetben az egyesület vezetője állíthat egy ideiglenes jelszót, amit később meg kell változtatnia a tagnak. `?`
+
