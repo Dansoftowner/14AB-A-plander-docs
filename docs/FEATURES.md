@@ -46,7 +46,7 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 ### Beállítások
 - téma állítása
 - nyelv állítása
-- jelszómódosítás vagy akár teljes profil szerkesztése (*pl. új lakcím miatt*)`?`
+- minden felhasználó tudja módosítani saját profiljának néhány adatát (*pl. telszám, lakcím*)
 
 ### Admin fül
 - A felhasználó jogosultságától függően tud itt dolgozni - sima `user`-nél nem jelenik meg
@@ -62,4 +62,8 @@ A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funk
 
  ### Napló internet nélkül probléma
 Lehetővé kell tenni, hogy szolgálatvégzés alatt is módosítható legyen a szolgálati napló. Nem feltétezhető mobilnet, emiatt offline állapotban is lehessen szerkeszteni a naplóbejegyzést, majd amikor van internet kapcsolat (*vélhetően a szolgálat végén*), ez töltődjön fel az adatbázisra.
+
+### Profilok
+Minden user hozzáfér saját személyes adataihoz, amiből néhányat saját maga is tud módosítani, de a polgárőr igazolványának számát nem tudja módosítani. Az egyesület vezetője a tagok profilját megtudja tekiteni, és ő képes módosítani az igazolvány számot például.
+
 
