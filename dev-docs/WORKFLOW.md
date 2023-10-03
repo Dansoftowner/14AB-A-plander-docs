@@ -39,7 +39,7 @@ Ahhoz, hogy a *merge* megtörténhessen, minden esetben a *reviewer*-nek jóvá 
 > Ha az adott fejlesztést egy GitHub Issue keretében végezzük el, a GitHub automatikusan felajánlja
 > az ideiglenes branch létrehozását, majd törlését is. A legtöbb esetben érdemes élni ezzel a lehetőséggel.
 
-Minden release branch-éről másolatot készítünk pl.: `release-v1.0.0`.
+Minden új stabil verzió esetén létrehozunk egy GitHub Release-t.
 
 ### Branch elnevezési konvenciók
 A branchek nevei a `kebab-case` elnevezési konvenciót követik, számokkal lehetőleg ne kezdődjenek.  
