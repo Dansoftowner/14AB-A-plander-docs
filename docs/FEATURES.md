@@ -1,42 +1,46 @@
 # Plander - Szolgálat tervező és naplózó
 
-A kezdetleges, eddig eltervezett funkciók felsorolása. A még bizonytalan funkciók `?`-el vannak jelölve a dokumentációban.
+A Plander alkalmazás egy szolgálattervező és naplózó program, amely a polgárőrség munkáját hivatott megkönnyíteni azzal (több más funkció mellett), hogy míg az egyesületvezetők digitálisan tervezhetik meg a munkaszolgálatokat, addig az egyesületi tagok digitálisan látják és naplózhatják szolgálataikat.
 
-## Design elemek
+A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmazza. A még bizonytalan funkciók `?`-el vannak jelölve a dokumentációban.
+
+## Oldalak
 - Bejelentkező oldal
 - Főoldal
-- Szolgálattervező oldal
-- Napló
-- Beállítások
-- Admin fül(ez az egyesületek elnökeinek szól)
+- Szolgálattervező oldal <!-- oldal és fül helyett oldal -->
+- Szolgálati napló
+- Beállítások oldal
+- Admin oldal (*ez az egyesületek elnökeinek szól*)
 
 ## A komponensek funkciói
-### Bejelentkezés
+### Bejelentkező oldal
+- A bejelentkezés egy felhasználónév jelszó páros megadásával történik
 - Az összes felvett egyesület legördülő listában jelenik meg
-- Az egyesület kiválasztása után a szolgálati igazolvány első pár számjegye (*ami az egyesületet, települést jelenti*) automatikusan beíródik.
-- Remember me funkció
+- Az egyesület kiválasztása után a szolgálati igazolvány első pár számjegye (*ami az egyesületet, települést jelenti*) automatikusan beíródik
+- `Remember me` funkció
 - Sikeres bejelentkezés után átirányítás a kezdőlapra (*Főoldal*)
+- Bejelentkezést követően a felhasználó vagy "egyszerű" tag, vagy egyesületvezető jogokkal rendelkezik
   
 ### Főoldal - Webes verzió!
 - A képernyő baloldalán a menüpontok választhatóak ki
-   - Admin esetén az `admin fül` fül is megjelenik
-- A jobb oldalon egy üzenőfal van, ide mindenki(*vagy csak adott `role`*) írhat fontos közleményeket
-- Aki a bejelentkezés idejében szolgálatban van, lássa ezt a főoldalon valahol
+   - Admin esetén az `Admin fül` fül is megjelenik
+- A jobb oldalon egy üzenőfal van, ide mindenki írhat fontos közleményeket vagy egyszerű üzeneteket
+- A tag bejelentkezés után ezen az oldalomn láthatja, ha aktálisan szolgálatban van
 
 ### Főoldal - kisméret (*mobil*)
 - Menüsáv jelenik meg, benne:
   - Menü felirat
   - Hamburgermenü, ami a teljes oldalra kinyílik és az összes elérhető menüpont megjelenik
 - A kinyílt menü az egyik fenti sarokban lévő `x` gombbal lehet elrejteni, vagy ha kiválasztunk egy menüpontot
-- A főoldal alapesetben csak az üzenőfalon megjelenő friss hírek látszanak majd
+- A főoldalon alapesetben csak az üzenőfalon megjelenő friss hírek látszanak majd
 
-### Szolgálat tervezés
-- Calendar kinézet, mindenki számára megtekinthető, de nem mindenki szerkesztheti
+### Szolgálattervező oldal
+- Calendar kinézet, mindenki számára megtekinthető, de nem mindenki szerkesztheti 
   - A napon belül az időintervallum is kiválasztható
 - Az egyesület vezetője tervezhet szolgálatot havi szinten
 - Az elkészült beosztást közzéteszi, melyről a többi tag értesül (*üzenőfal, tel: értesítés*)
   
-### Napló
+### Szolgálati napló
 - A napló elérése nem korlátozott
 - Kinézetről kép beküldve
 - A szolgálat elején új bejegyzés nyitása, végén lezárás
