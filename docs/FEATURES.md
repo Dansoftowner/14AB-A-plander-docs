@@ -35,18 +35,19 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 - A főoldalon alapesetben csak az üzenőfalon megjelenő friss hírek látszanak majd
 
 ### Szolgálattervező oldal
-- Calendar kinézet, mindenki számára megtekinthető, de nem mindenki szerkesztheti 
+- Calendar kinézet, mindenki számára megtekinthető, de csak az egyesületvezető szerkesztheti 
   - A napon belül az időintervallum is kiválasztható
 - Az egyesület vezetője tervezhet szolgálatot havi szinten
 - Az elkészült beosztást közzéteszi, melyről a többi tag értesül (*üzenőfal, tel: értesítés*)
   
 ### Szolgálati napló
 - A napló elérése nem korlátozott
-- Kinézetről kép beküldve
-- A szolgálat elején új bejegyzés nyitása, végén lezárás
-- A lezárás után az egyszerű `user` ***nem módosíthatja*** azt már, elírás esetén magasabb szintű felhasználó kell
+- Kinézetről kép [itt](https://github.com/Dansoftowner/14AB-A-Others/tree/main/UI_design) látható
+- A szolgálat elején a szolgálatot teljesítő tag új bejegyzést hoz létre, amit a szolgálat végén zár  le
+- A lezárás után az egyszerű `tag` ***nem módosíthatja*** azt már, elírás esetén egyesületvezetőre kell
 - Az elkészült bejegyzések egyesével nyomtathatóak szükség esetén, erre egy sablon lesz létrehozva
 - Csak a legutóbbi 5 szolgálat tekinthető meg
+- A fülön csak az adott egyesület jelentései jelennek meg
 
 ### Beállítások = Frontenden Profil fül 
 - téma állítása
@@ -55,7 +56,7 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 
 ### Admin fül
 - A felhasználó jogosultságától függően tud itt dolgozni - sima `user`-nél nem jelenik meg
-- Csoportvezető / egyesületvezető
+- Egyesületvezető
   - Képes a saját egyesületében kezelni a tagokat (*felvenni, módosítani...*)
 
 ## Technikai funkciók
@@ -67,6 +68,6 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 Lehetővé kell tenni, hogy szolgálatvégzés alatt is módosítható legyen a szolgálati napló. Nem feltétezhető mobilnet, emiatt offline állapotban is lehessen szerkeszteni a naplóbejegyzést, majd amikor van internet kapcsolat (*vélhetően a szolgálat végén*), ez töltődjön fel az adatbázisra. Alapesetben, amikor a szolgálatot ellátó személy rendelkezik internet kapcsolattal, a lezárás után töltődik fel a bejegyzés az adatbázisra.
 
 ### Profilok
-Minden felhasználó hozzáfér saját személyes adataihoz,és beállításaihoz, amik a profiljához vannak kapcsolva. Ezeket a Profil(*=korábbi Beállítások*) fül alatt tehetimeg.
+Minden felhasználó hozzáfér saját személyes adataihoz, és beállításaihoz, amik a profiljához vannak kapcsolva. Ezeket a Profil(*=korábbi Beállítások*) fül alatt tekenthet meg.
 
 
