@@ -10,7 +10,7 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 - Szolgálattervező oldal <!-- oldal és fül helyett oldal -->
 - Szolgálati napló
 - Beállítások oldal
-- Admin oldal (*ez az egyesületek elnökeinek szól*)
+- Tagok
 
 ## A komponensek funkciói
 ### Bejelentkező oldal
@@ -54,9 +54,9 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 - nyelv állítása
 - minden felhasználó tudja módosítani saját profiljának adatát (*pl. telszám, lakcím*)
 
-### Admin fül
-- A felhasználó jogosultságától függően tud itt dolgozni ("egyszerű" `tagnál` nem jelenik meg)
-- Egyesületvezető
+### Tagok oldal
+- A felhasználó jogosultságától függően tud itt dolgozni, a `user` meg tudja tekinteni az egyesületében lévő más tagokat
+- Csoportvezető / egyesületvezető
   - Képes a saját egyesületében kezelni a tagokat (*felvenni, módosítani...*)
 
 ## Technikai funkciók
