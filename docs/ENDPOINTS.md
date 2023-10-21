@@ -104,19 +104,17 @@ A válasz formátuma:
 
 ## Members (tagok)
 
-### `POST` `/api/members`
+#### Egy tag által megtekinthető más tagok adatai:
 
-Az **egyesületvezető ranggal rendelkező** tagok ezen a végponton kereszttül
-tudják **regisztrálni** a további tagokat.
-
-**Required http headers:**
-
-- `x-auth-token` - a tagot azonosító token
-
-#### ?:
-
-- Mik azok a szükséges adatok, amelyeknek a kérés törzsében szerepelniük kell, vagy opcionálisak? (Mert lehet bizonyos adatok megadását a csoportvezető a tagra bízza)
-- Mi legyen a válasz törzsében?
+- `_id`
+- `username`
+- `officialIdentifier` (csak `manager` ranggal)
+- `name`
+- `address` (csak `manager` ranggal)
+- `idNumber` (csak `manager` ranggal)
+- `email`
+- `phoneNumber`
+- `roles`
 
 ### `GET` `/api/members`
 
@@ -132,21 +130,9 @@ Az adott tag egyesületébe tartozó összes tag lekérdezése.
 - `limit` - maximum megjelenítendő dokumentumok száma (alapértelmezett: 10, maximum: 40)
 - `projection`
   - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
-  - `full`: az összes (a tag által megtekinthető, lsd: lent) mező megjelenítése
+  - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 - `orderBy`: a mező neve, ami alapján a dokumentumokat rendezni kívánjuk, a csökkenő sorrendet `-` karakter jelöli (alapértelmezett: `name`)
 - `q`: a `name` mező alapján való keresés (_case-insensitive_)
-
-#### Egy tag által megtekinthető más tagok adatai:
-
-- `_id`
-- `username`
-- `officialIdentifier` (csak `manager` ranggal)
-- `name`
-- `address` (csak `manager` ranggal)
-- `idNumber` (csak `manager` ranggal)
-- `email`
-- `phoneNumber`
-- `roles`
 
 Pl.:
 
@@ -178,4 +164,58 @@ A válasz formátuma:
 }
 ```
 
-### `GET` `/api/members/{id}` -
+### `GET` `/api/members/{id}`
+
+Egy adott tag adatainak lekérése az azonosítója alapján.
+
+**Parameters:**
+
+- `id` - a lekérendő tag azonosítója
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token
+
+**Query parameters:**
+
+- `projection`
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
+  - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
+
+Ha a megjelenítendő tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+
+> Ha az azonosító alapján megjelenítendő tag ugyanaz, mint aki a kérést küldte, akkor jogosult az egyébként rangja alapján nem feltétlenül látható mezők megtekintésére is.
+
+Pl.:
+
+```rest
+GET /api/members?projection=lite
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+```
+
+A válasz formátuma:
+
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cdf",
+  "username": "ccolebeck0",
+  "name": "András Kovács",
+  "email": "ahilhouse0@disqus.com",
+  "phoneNumber": "+34 (829) 635-5692",
+  "roles": ["member", "manager"]
+}
+```
+
+### `POST` `/api/members`
+
+Az **egyesületvezető ranggal rendelkező** tagok ezen a végponton kereszttül
+tudják **regisztrálni** a további tagokat.
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token
+
+#### ?:
+
+- Mik azok a szükséges adatok, amelyeknek a kérés törzsében szerepelniük kell, vagy opcionálisak? (Mert lehet bizonyos adatok megadását a csoportvezető a tagra bízza)
+- Mi legyen a válasz törzsében?
