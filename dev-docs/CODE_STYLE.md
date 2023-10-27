@@ -68,7 +68,7 @@ A React kódoknál tsx fájlokat használunk, erre minden TypeScript sajátossá
   ```
 ### Könyvtár felépítés
 - Minden komponens az `src/components/` mappába kerülnek, ezen belül minden komponens kap egy saját mappát, (pl.: `Counter.tsx` komponens esetén: `Counter` mappába kerül a `.tsx` és a `css` fájl, ha van)
-- A saját hook-ok az `src/hooks` mappába kerülnek, a hook elnevezésének formátuma szigoró: `useHook`, a use szóval kezdődjön és utána a funkcióra utaló neve (pl.: Data fetch-hez használt hook: `useData`)
+- A saját hook-ok az `src/hooks` mappába kerülnek, a hook elnevezésének formátuma szigorú: `useHook`, a use szóval kezdődjön és utána a funkcióra utaló neve (pl.: Data fetch-hez használt hook: `useData`)
 - Azon szolgáltatások, melyek nem befolyásolják a weboldal felépítését az `src/services` mappába kerülnek (pl.: `cropImage.ts`, ez a megjelenést nem befolyásolja, de fontos, mivel kisebb méretre vágja a képet)
 
 A könyvtár felépítési szabályait ***be kell tartani*** az átlátható kód érdekében.
