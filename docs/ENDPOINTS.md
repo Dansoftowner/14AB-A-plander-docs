@@ -261,7 +261,7 @@ tudják **feliratkoztatni** a további tagokat.
 
 - `x-auth-token` - a tagot azonosító token
 
-**Kérés formátuma:**
+**Kérés formátuma:**  
 Content-Type: `application/json`
 
 - `email*`
@@ -288,7 +288,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zm
 ```
 
 A válasz formátuma:  
-Status: `201`
+Status: `201`  
 Tartalom: [A beillesztett rekord]
 ```json
 {
