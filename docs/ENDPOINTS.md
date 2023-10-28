@@ -115,6 +115,7 @@ A válasz formátuma:
 - `email`
 - `phoneNumber`
 - `roles`
+- `isVerified` (ez a jellemző ugyan látható, de a nem megerősített tagok csak a `manager` ranggal rendelkezők számára jelennek meg)
 
 ### `GET` `/api/members`
 
@@ -129,7 +130,7 @@ Az adott tag egyesületébe tartozó összes tag lekérdezése.
 - `offset` - elhagyandó dokumentumok száma (alapértelmezett: 0)
 - `limit` - maximum megjelenítendő dokumentumok száma (alapértelmezett: 10, maximum: 40)
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 - `orderBy`: a mező neve, ami alapján a dokumentumokat rendezni kívánjuk, a csökkenő sorrendet `-` karakter jelöli (alapértelmezett: `name`)
 - `q`: a `name` mező alapján való keresés (_case-insensitive_)
@@ -157,6 +158,7 @@ A válasz formátuma:
     "name": "András Kovács",
     "email": "ahilhouse0@disqus.com",
     "phoneNumber": "+34 (829) 635-5692",
+    "isVerified": true,
     "roles": ["member", "manager"]
     }
     ... 4 more items ...
@@ -179,7 +181,7 @@ Egy adott tag adatainak lekérése az azonosítója alapján.
 **Query parameters:**
 
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 
 Ha a megjelenítendő tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
@@ -202,6 +204,7 @@ A válasz formátuma:
   "name": "András Kovács",
   "email": "ahilhouse0@disqus.com",
   "phoneNumber": "+34 (829) 635-5692",
+  "isVerified": true,
   "roles": ["member", "manager"]
 }
 ```
@@ -221,7 +224,7 @@ Egy adott tag adatainak lekérése a felhasználóneve alapján.
 **Query parameters:**
 
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 
 Mivel a tag felhasználóneve csak az egyesületen belül egyedi, a kérés küldője (akit a _token_ azonosít) ugyanabba az egyesületbe kell tartozzon, különben az adatok nem kérhetőek le.
@@ -244,6 +247,7 @@ A válasz formátuma:
   "name": "András Kovács",
   "email": "ahilhouse0@disqus.com",
   "phoneNumber": "+34 (829) 635-5692",
+  "isVerified": true,
   "roles": ["member", "manager"]
 }
 ```
@@ -251,13 +255,45 @@ A válasz formátuma:
 ### `POST` `/api/members`
 
 Az **egyesületvezető ranggal rendelkező** tagok ezen a végponton kereszttül
-tudják **regisztrálni** a további tagokat.
+tudják **feliratkoztatni** a további tagokat.
 
 **Required http headers:**
 
 - `x-auth-token` - a tagot azonosító token
 
-#### ?:
+**Kérés formátuma:**
+Content-Type: `application/json`
 
-- Mik azok a szükséges adatok, amelyeknek a kérés törzsében szerepelniük kell, vagy opcionálisak? (Mert lehet bizonyos adatok megadását a csoportvezető a tagra bízza)
-- Mi legyen a válasz törzsében?
+- `email*`
+- *`officialIdentifier`* 
+- *`name`*
+- *`address`*
+- *`idNumber`*
+- *`phoneNumber`*
+
+Mivel az egyesületvezetőtől nem várható el az, hogy ő maga adja meg a regisztrálandó tag összes adatát, neki **csak az e-mail címet** kell kötelezően megadnia.  
+
+A felhasználónevet és jelszót viszont kizárólag csak a tag tudja megadni később (addig ún. *unverified/megerősítetlen* állapoban van rögzítve az adatbázisban).
+
+Pl.:
+
+```rest
+POST /api/members/
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+
+{
+  "email:": "member@example.com"
+}
+```
+
+A válasz formátuma:  
+Status: `201`
+Tartalom: [A beillesztett rekord]
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "email:": "member@example.com",
+  "isVerified": false
+} 
+```
