@@ -189,7 +189,49 @@ Ha a megjelenítendő tag létezik az azonosítója alapján, **de nem ugyanabba
 Pl.:
 
 ```rest
-GET /api/members?projection=lite
+GET /api/members/652f85c4fc13ae3d596c7cdf?projection=lite
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+```
+
+A válasz formátuma:
+
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cdf",
+  "username": "ccolebeck0",
+  "name": "András Kovács",
+  "email": "ahilhouse0@disqus.com",
+  "phoneNumber": "+34 (829) 635-5692",
+  "roles": ["member", "manager"]
+}
+```
+
+### `GET` `/api/members/username/{username}`
+
+Egy adott tag adatainak lekérése a felhasználóneve alapján.
+
+**Parameters:**
+
+- `username` - a lekérendő tag felhasználóneve
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token
+
+**Query parameters:**
+
+- `projection`
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber` és `roles` mezők megjelenítése
+  - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
+
+Mivel a tag felhasználóneve csak az egyesületen belül egyedi, a kérés küldője (akit a _token_ azonosít) ugyanabba az egyesületbe kell tartozzon, különben az adatok nem kérhetőek le.
+
+> Ha az felhasználónév alapján megjelenítendő tag ugyanaz, mint aki a kérést küldte, akkor jogosult az egyébként rangja alapján nem feltétlenül látható mezők megtekintésére is.
+
+Pl.:
+
+```rest
+GET /api/members/username/ccolebeck0?projection=lite
 x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 ```
 
