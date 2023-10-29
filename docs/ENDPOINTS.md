@@ -255,7 +255,7 @@ A válasz formátuma:
 ### `POST` `/api/members`
 
 Az **egyesületvezető ranggal rendelkező** tagok ezen a végponton kereszttül
-tudják **feliratkoztatni** a további tagokat.
+tudják **meghívni** a további tagokat.
 
 **Required http headers:**
 
@@ -295,5 +295,77 @@ Tartalom: [A beillesztett rekord]
   "_id": "652f85c4fc13ae3d596c7cde",
   "email:": "member@example.com",
   "isVerified": false
+} 
+```
+
+### `GET` `/api/members/register/{id}/{registrationToken}`
+
+Ez a végbont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza.
+
+**Parameters:**
+- `id` - a tag azonosítója
+- `registrationToken` - a **regisztrációs token**
+
+Pl.:
+
+```rest
+GET /api/members/register/652f85c4fc13ae3d596c7cde/4vcmk1uzezrx7uc9bb5a19iu0cbsgd
+```
+
+A válasz formátuma:  
+```json
+{
+  "email:": "member@example.com"
+} 
+```
+(Ha az egyesületvezető egyéb adatokat is megadott a tag meghívásakor az e-mail címen kívül, akkor természetesen azok is szerepelnek a válasz törzsében.)
+
+### `POST` `/api/members/register/{id}/{registrationToken}`
+
+A **meghívott tagok** ezen a végponton keresztül tudnak **regisztrálni** és a hiányzó adataikat pótolni.
+
+**Parameters:**
+- `id` - a tag azonosítója
+- `registrationToken` - a **regisztrációs token**
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- *`username*`*
+- *`password*`*
+- *`officialIdentifier`* 
+- *`name*`*
+- *`address*`*
+- *`idNumber*`*
+- *`phoneNumber*`*
+
+Pl.:
+
+```rest
+POST /api/members/register/652f85c4fc13ae3d596c7cde/4vcmk1uzezrx7uc9bb5a19iu0cbsgd
+
+{
+  "username": "superguard01",
+  "password": "SuperSafe@41a",
+  "officialIdentifier": "4148009",
+  "name": "Horváth Csaba",
+  "address": "9029 Csontvár Sonka Utca 5.",
+  "idNumber": "594771CQ",
+  "phoneNumber": "+256 (776) 361-0286"
+}
+```
+
+A válasz formátuma:  
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "email:": "member@example.com",
+  "username": "superguard01",
+  "officialIdentifier": "4148009",
+  "name": "Horváth Csaba",
+  "address": "9029 Csontvár Sonka Utca 5.",
+  "idNumber": "594771CQ",
+  "phoneNumber": "+256 (776) 361-0286",
+  "isVerified": true
 } 
 ```
