@@ -275,6 +275,8 @@ Mivel az egyesületvezetőtől nem várható el az, hogy ő maga adja meg a regi
 
 A felhasználónevet és jelszót viszont kizárólag csak a tag tudja megadni később (addig ún. *unverified/megerősítetlen* állapoban van rögzítve az adatbázisban).
 
+**A végpont meghívásakor a meghívott tag automatikusan e-mailt kap egy regisztrációs linkkel, amin keresztül később véglegesíteni tudja magát.**
+
 Pl.:
 
 ```rest
@@ -300,7 +302,7 @@ Tartalom: [A beillesztett rekord]
 
 ### `GET` `/api/members/register/{id}/{registrationToken}`
 
-Ez a végbont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza.
+Ez a végpont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza. *Csak megerősítetlen, még regisztráció előtt lévő tagok esetében releváns.* 
 
 **Parameters:**
 - `id` - a tag azonosítója
