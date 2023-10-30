@@ -39,6 +39,7 @@ A kód formázásához [Prettier](https://prettier.io/)-t használunk.
     useFs: true,
   }
   ```
+  
 Ezeken túl a Prettier alapbeállításaira támaszkodunk.  
 
 A Prettier config-ja a következő (`.prettierrc.json`):
@@ -51,3 +52,23 @@ A Prettier config-ja a következő (`.prettierrc.json`):
 }
 ```
 ***Commit*olás előtt mindenképp formázzuk a forráskódot**, a legjobb az, hogyha beállítjuk a VSCode-ban a mentéskor való automatikus formázást!
+
+## REACT sajátosságok
+
+A React kódoknál tsx fájlokat használunk, erre minden TypeScript sajátosság és megkötés érvényes.
+
+- A komponensek esetén `PascalCase` névkonvenciót használunk
+- A függvényeket arrow function-nal hozzuk létre
+- A változók létrehozásakor ***nem*** adjuk meg a változó típusát, ezek alól kivételek azon függvények, melyek ezt kötelezővé teszik (*itt rosszabb esetben `any` típust  használunk*):
+ ```ts
+//rossz deklarálás
+  const myVariable: number = 22
+//jó
+  const myGoodVariable = 22
+  ```
+### Könyvtár felépítés
+- Minden komponens az `src/components/` mappába kerülnek, ezen belül minden komponens kap egy saját mappát, (pl.: `Counter.tsx` komponens esetén: `Counter` mappába kerül a `.tsx` és a `css` fájl, ha van)
+- A saját hook-ok az `src/hooks` mappába kerülnek, a hook elnevezésének formátuma szigorú: `useHook`, a use szóval kezdődjön és utána a funkcióra utaló neve (pl.: Data fetch-hez használt hook: `useData`)
+- Azon szolgáltatások, melyek nem befolyásolják a weboldal felépítését az `src/services` mappába kerülnek (pl.: `cropImage.ts`, ez a megjelenést nem befolyásolja, de fontos, mivel kisebb méretre vágja a képet)
+
+A könyvtár felépítési szabályait ***be kell tartani*** az átlátható kód érdekében.
