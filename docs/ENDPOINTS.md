@@ -345,6 +345,7 @@ Pl.:
 
 ```rest
 POST /api/members/register/652f85c4fc13ae3d596c7cde/4vcmk1uzezrx7uc9bb5a19iu0cbsgd
+Content-Type: application/json
 
 {
   "username": "superguard01",
@@ -391,20 +392,54 @@ A végpont működéséről a következőket mondhatjuk el:
 
 * Ha a kérés küldője nem egyesületvezető, de **megegyezik** az azonosítója alapján a **módosítandó taggal**, akkor az adatait módosíthatja.
 
-* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.
+* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.  
+Kívételt jelentenek a következők:
+  - `username` - a felhasználónevet csak az adott tag módosíthatja
+  - `password` - a jelszót csak az adott tag módosíthatja
+  - `preferences` - az adott tag egyéni beállításait csak az adott tag módosíthatja
 
 * Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
+
+* **A rangokat nincs lehetőség ezen a végponton keresztül módosítani.**
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- *`username`* - **csak akkor lehetséges, ha a kérés küldője a saját adatait akarja módosítani**
-- *`password`* - **csak akkor lehetséges, ha a kérés küldője a saját adatait akarja módosítani**
+- *`username`*
+- *`password`*
+- *`email`*
 - *`officialIdentifier`* 
 - *`name`*
 - *`address`*
 - *`idNumber`*
 - *`phoneNumber`*
+- *`preferences`*
 
-> preferences??
+Pl.:
 
+```rest
+PATCH /api/members/652f85c4fc13ae3d596c7cde
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+
+{
+  "address": "7200 Igazváros Valóság Utca 5.",
+  "idNumber": "1232IQ",
+  "phoneNumber": "+1020113301"
+}
+```
+
+A válasz formátuma:
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "email:": "member@example.com",
+  "username": "superguard01",
+  "officialIdentifier": "4148009",
+  "name": "Horváth Csaba",
+  "address": "7200 Igazváros Valóság Utca 5.",
+  "idNumber": "1232IQ",
+  "phoneNumber": "+1020113301",
+  "isVerified": true
+} 
+```
