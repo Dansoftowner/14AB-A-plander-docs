@@ -2,15 +2,16 @@
 
 > A jegyzet folyamatosan bővül
 
-## Associations (Egyesületek)
-
 ### Áttekintés
 
+[**Associations (Egyesületek)**](#associations-egyesületek)
 |       |                                                      |                                                   |
 |-------|------------------------------------------------------|---------------------------------------------------|
 | `GET` | [`/api/associations`](#get-apiassociations)          | Összes egyesület lekérdezése.                     |
 | `GET` | [`/api/associations/{id}`](#get-apiassociationsid)   | Egy adott egyesület adatainak lekérdezése.        |
 | `GET` | [`/api/associations/mine`](#get-apiassociationsmine) | Az adott tag egyesületének adatainak lekérdezése. |
+
+## Associations (Egyesületek)
 
 ### `GET` `/api/associations`
 
