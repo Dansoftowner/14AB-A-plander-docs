@@ -503,7 +503,7 @@ A válasz formátuma:
 } 
 ```
 
-### `PATCH` `/api/members/transfer-roles/{id}`
+### `PATCH` `/api/members/transfer-my-roles/{id}`
 
 Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot *egyesületvezető ranggal* (`manager`).
 
@@ -533,7 +533,7 @@ Content-Type: application/json
 Pl.:
 
 ```rest
-PATCH /api/members/transfer-roles/652f85c4fc13ae3d596c7cde
+PATCH /api/members/transfer-my-roles/652f85c4fc13ae3d596c7cde
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 
