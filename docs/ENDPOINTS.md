@@ -78,7 +78,7 @@ A válasz formátuma:
 
 ### `GET` `/api/associations/mine`
 
-Az adott tag egyesületének adatainak lekérdezése.
+Az adott tag egyesületének adatainak lekérdezése. (*Gyakorlatilag egy egyszerűsített változata az előzőleg bemutatott végpontnak, de ez a token-ből nyeri ki az id-t.*)
 
 **Required http headers:**
 
@@ -423,7 +423,7 @@ Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 
 {
-  "address": "7200 Igazváros Valóság Utca 5.",
+  "address": "7200 Igazváros Valóság Utca 5",
   "idNumber": "1232IQ",
   "phoneNumber": "+1020113301"
 }
@@ -437,9 +437,107 @@ A válasz formátuma:
   "username": "superguard01",
   "officialIdentifier": "4148009",
   "name": "Horváth Csaba",
-  "address": "7200 Igazváros Valóság Utca 5.",
+  "address": "7200 Igazváros Valóság Utca 5",
   "idNumber": "1232IQ",
   "phoneNumber": "+1020113301",
   "isVerified": true
 } 
 ```
+
+### `PATCH` `/api/members/me`
+
+Egy tag ezen keresztül tudja módosítani a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az előzőleg bemutatott végpontnak, de ez a token-ből nyeri ki az id-t.*)
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token  
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- *`username`*
+- *`password`*
+- *`email`*
+- *`officialIdentifier`* 
+- *`name`*
+- *`address`*
+- *`idNumber`*
+- *`phoneNumber`*
+- *`preferences`*
+
+Pl.:
+
+```rest
+PATCH /api/members/me
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+
+{
+  "address": "7200 Igazváros Valóság Utca 5",
+  "idNumber": "1232IQ",
+  "phoneNumber": "+1020113301"
+}
+```
+
+A válasz formátuma:
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "email:": "member@example.com",
+  "username": "superguard01",
+  "officialIdentifier": "4148009",
+  "name": "Horváth Csaba",
+  "address": "7200 Igazváros Valóság Utca 5",
+  "idNumber": "1232IQ",
+  "phoneNumber": "+1020113301",
+  "isVerified": true
+} 
+```
+
+### `PATCH` `/api/members/transfer-roles/{id}`
+
+Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot *egyesületvezető ranggal* (`manager`).
+
+**Parameters:**
+
+- `id` - a felruházni kivánt tag azonosítója
+
+**Query parameters:**
+
+- `copy` - ha értéke `true`, akkor az tag rangja továbbra is megmarad, ha éréke `false`, akkor a tag rangja törlődik, és "átszáll" a felruházott tagra (alapértelmezett érték: `false`)
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token
+
+**Kérés formátuma:**
+
+Content-Type: application/json
+
+- `password*` 
+
+**Mivel ez egy kockázatos művelet, a jelszót meg kell újra adni a kérés törzsében, a token nem elég.**
+
+* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+* Ha a kérést küldő tag **nem egyesületvezető**, a kérésnek **nincs jelentősége**
+
+Pl.:
+
+```rest
+PATCH /api/members/transfer-roles/652f85c4fc13ae3d596c7cde
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+
+{
+  "password" : "SuperSafe123"
+}
+```
+
+A válasz formátuma:
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "roles": ["member", "manager"]
+} 
+```
+*A felruházott tag azonosítója, és jogai.*
