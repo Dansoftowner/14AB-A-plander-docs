@@ -371,3 +371,40 @@ A válasz formátuma:
   "isVerified": true
 } 
 ```
+
+### `PATCH` `/api/members/{id}`
+
+Egy **egyesületvezető** ezen a végponton keresztül tudja módosítani a **megerősítetlen** tagok adatait, illetve egy tag a saját adatait. 
+
+**Parameters:**
+- `id` - a módosítandó tag azonosítója
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token  
+
+A végpont működéséről a következőket mondhatjuk el:
+
+* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+
+* Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** adatait **nem módosíthatja**.
+
+* Ha a kérés küldője nem egyesületvezető, de **megegyezik** az azonosítója alapján a **módosítandó taggal**, akkor az adatait módosíthatja.
+
+* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.
+
+* Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- *`username`* - **csak akkor lehetséges, ha a kérés küldője a saját adatait akarja módosítani**
+- *`password`* - **csak akkor lehetséges, ha a kérés küldője a saját adatait akarja módosítani**
+- *`officialIdentifier`* 
+- *`name`*
+- *`address`*
+- *`idNumber`*
+- *`phoneNumber`*
+
+> preferences??
+
