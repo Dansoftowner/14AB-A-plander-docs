@@ -395,7 +395,7 @@ A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket
 
 A végpont működéséről a következőket mondhatjuk el:
 
-* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az e-mail címe nem módosítható.
 
 * Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** e-mail címét **nem módosíthatja**.
 
@@ -435,6 +435,22 @@ A válasz formátuma:
 ### `PATCH` `/api/members/email/mine`
 
 A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t.*)
+
+### `PATCH` `/api/members/credentials/mine`
+
+A tagok ezen a végponton keresztül tudják megváltoztatni a felhasználónevüket és/vagy e-mail címüket.
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token  
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- `actualPassword*` - **Mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező.**
+- `username` - az új felhasználónév
+- `password`
+
 
 ### `PATCH` `/api/members/{id}`
 
