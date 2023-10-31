@@ -443,13 +443,37 @@ A tagok ezen a végponton keresztül tudják megváltoztatni a felhasználónev�
 **Required http headers:**
 
 - `x-auth-token` - a tagot azonosító token  
+- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég** 
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- `actualPassword*` - **Mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező.**
-- `username` - az új felhasználónév
-- `password`
+- `username` - az új felhasználónév (***egyesületen belül egyedinek kell lennie***)
+- `password` - az új jelszó
+
+Értelemszerűen csak akkor van a kérésnek értelme, ha a felhasználónév és/vagy jelszó meg van adva.
+
+Pl.:
+
+```rest
+PATCH /api/members/credentials/652f85c4fc13ae3d596c7cde
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-auth-password: OldPassword123
+
+{
+  "password": "NewPassword"
+}
+```
+
+A válasz formátuma:
+
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "updated": [ "password" ]
+}
+```
 
 
 ### `PATCH` `/api/members/{id}`
@@ -472,11 +496,8 @@ A végpont működéséről a következőket mondhatjuk el:
 * Ha a kérés küldője nem egyesületvezető, de **megegyezik** az azonosítója alapján a **módosítandó taggal**, akkor az adatait módosíthatja.
 
 * Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.  
-Kívételt jelentenek a következők:
-  - `username` - a felhasználónevet csak az adott tag módosíthatja
-  - `password` - a jelszót csak az adott tag módosíthatja
+Kívételt jelent:
   - `preferences` - az adott tag egyéni beállításait csak az adott tag módosíthatja
-
 
 * **A rangokat nincs lehetőség ezen a végponton keresztül módosítani.**
 
