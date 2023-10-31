@@ -382,6 +382,60 @@ A válasz formátuma:
 } 
 ```
 
+### `PATCH` `/api/members/email/{id}`
+
+A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket, illetve az **egyesületvezetők** ezen a végponton keresztül tudják megváltoztatni a még nem megerősített (csak meghívott) tagok e-mail címét.
+
+**Parameters:**
+- `id` - a módosítandó tag azonosítója
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token  
+
+A végpont működéséről a következőket mondhatjuk el:
+
+* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+
+* Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** e-mail címét **nem módosíthatja**.
+
+* A kérés küldője a saját e-mail címét módosíthatja (ebben az esetben a saját *id*-t adja meg).
+
+* Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott linket.
+
+* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag e-mail címét módosíthatja.
+
+* Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- `email*`
+
+Pl.:
+
+```rest
+PATCH /api/members/email/652f85c4fc13ae3d596c7cde
+Content-Type: application/json
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+
+{
+  "email": "newemail@example.com"
+}
+```
+
+A válasz formátuma:
+
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde"
+}
+```
+
+### `PATCH` `/api/members/email/mine`
+
+A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t.*)
+
 ### `PATCH` `/api/members/{id}`
 
 Egy **egyesületvezető** ezen a végponton keresztül tudja módosítani a **megerősítetlen** tagok adatait, illetve egy tag a saját adatait. 
@@ -407,7 +461,6 @@ Kívételt jelentenek a következők:
   - `password` - a jelszót csak az adott tag módosíthatja
   - `preferences` - az adott tag egyéni beállításait csak az adott tag módosíthatja
 
-* Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
 
 * **A rangokat nincs lehetőség ezen a végponton keresztül módosítani.**
 
@@ -416,7 +469,6 @@ Content-Type: `application/json`
 
 - *`username`*
 - *`password`*
-- *`email`*
 - *`officialIdentifier`* 
 - *`name`*
 - *`address`*
