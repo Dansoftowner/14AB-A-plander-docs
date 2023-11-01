@@ -431,6 +431,18 @@ A válasz formátuma:
 } 
 ```
 
+### `POST` `/api/members/forgotten-password`
+
+Ez a végpont használható arra, hogy a tagok helyreállítsák az elfelejtett jelszavukat.  
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- *`associationId`* - az egyesület azonosítója
+- *`email`* - a jelszavát helyreállítani kivánó tag e-mail címe
+
+Ha a megadott e-mail címmel valóban létezik tag, akkor arra a címre egy helyreállító link kerül küldésre. 
+
 ### `PATCH` `/api/members/email/{id}`
 
 A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket, illetve az **egyesületvezetők** ezen a végponton keresztül tudják megváltoztatni a még nem megerősített (csak meghívott) tagok e-mail címét.
