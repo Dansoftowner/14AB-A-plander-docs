@@ -7,9 +7,21 @@
 [**Associations (Egyesületek)**](#associations-egyesületek)
 |       |                                                      |                                                   |
 |-------|------------------------------------------------------|---------------------------------------------------|
-| `GET` | [`/api/associations`](#get-apiassociations)          | Összes egyesület lekérdezése.                     |
+| `GET` | [`/api/associations/`](#get-apiassociations)          | Összes egyesület lekérdezése.                     |
 | `GET` | [`/api/associations/{id}`](#get-apiassociationsid)   | Egy adott egyesület adatainak lekérdezése.        |
 | `GET` | [`/api/associations/mine`](#get-apiassociationsmine) | Az adott tag egyesületének adatainak lekérdezése. |
+
+[**Members (Tagok)**](#members-tagok)
+|       |                                                      |                                                   |
+|-------|------------------------------------------------------|---------------------------------------------------|
+| `GET` | [`/api/members/`](#get-apimembers)          | Az adott tag egyesületébe tartozó összes tag lekérdezése.                  |
+| `GET` | [`/api/members/{id}`](#get-apimembersid)   | Egy adott tag adatainak lekérése az azonosítója alapján.        |
+| `GET` | [`/api/members/me`](#get-apimembersme) | Egy tag ezen keresztül tudja lekérdezni a saját adatait. |
+| `GET` | [`/api/members/username/{username}`](#get-apimembersusernameusername) | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
+| `POST` | [`/api/members/`](#post-apimembers) | Egy tag meghívása az egyesületbe. |
+| `GET` | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken) | Egy meghívott . |
+
+
 
 ## Associations (Egyesületek)
 
@@ -217,6 +229,10 @@ A válasz formátuma:
   "roles": ["member", "manager"]
 }
 ```
+
+### `GET` `/api/members/me`
+
+Egy tag ezen keresztül tudja lekérdezni a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#get-apimembersid), de ez a token-ből nyeri ki az id-t.*)
 
 ### `GET` `/api/members/username/{username}`
 
