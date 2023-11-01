@@ -544,53 +544,7 @@ A válasz formátuma:
 
 ### `PATCH` `/api/members/me`
 
-Egy tag ezen keresztül tudja módosítani a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az előzőleg bemutatott végpontnak, de ez a token-ből nyeri ki az id-t.*)
-
-**Required http headers:**
-
-- `x-auth-token` - a tagot azonosító token  
-
-**Kérés formátuma:**  
-Content-Type: `application/json`
-
-- *`username`*
-- *`password`*
-- *`email`*
-- *`officialIdentifier`* 
-- *`name`*
-- *`address`*
-- *`idNumber`*
-- *`phoneNumber`*
-- *`preferences`*
-
-Pl.:
-
-```rest
-PATCH /api/members/me
-Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-
-{
-  "address": "7200 Igazváros Valóság Utca 5",
-  "idNumber": "1232IQ",
-  "phoneNumber": "+1020113301"
-}
-```
-
-A válasz formátuma:
-```json
-{
-  "_id": "652f85c4fc13ae3d596c7cde",
-  "email:": "member@example.com",
-  "username": "superguard01",
-  "officialIdentifier": "4148009",
-  "name": "Horváth Csaba",
-  "address": "7200 Igazváros Valóság Utca 5",
-  "idNumber": "1232IQ",
-  "phoneNumber": "+1020113301",
-  "isVerified": true
-} 
-```
+Egy tag ezen keresztül tudja módosítani a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersid), de ez a token-ből nyeri ki az id-t.*)
 
 ### `PATCH` `/api/members/transfer-my-roles/{id}`
 
@@ -607,17 +561,14 @@ Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű
 **Required http headers:**
 
 - `x-auth-token` - a tagot azonosító token
+- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég** 
 
-**Kérés formátuma:**
+A végpont működéséről a következőket mondhatjuk el:
 
-Content-Type: application/json
 
-- `password*` 
-
-**Mivel ez egy kockázatos művelet, a jelszót meg kell újra adni a kérés törzsében, a token nem elég.**
-
-* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor a kérés nem érvényes.
 * Ha a kérést küldő tag **nem egyesületvezető**, a kérésnek **nincs jelentősége**
+* Habár ez egy `patch` kérés, a törzsben semmit sem kell küldeni
 
 Pl.:
 
@@ -625,10 +576,7 @@ Pl.:
 PATCH /api/members/transfer-my-roles/652f85c4fc13ae3d596c7cde
 Content-Type: application/json
 x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-
-{
-  "password" : "SuperSafe123"
-}
+x-auth-password: SuperSafe123
 ```
 
 A válasz formátuma:
