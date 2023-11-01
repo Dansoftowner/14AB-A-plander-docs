@@ -12,22 +12,24 @@
 | `GET` | [`/api/associations/mine`](#get-apiassociationsmine) | Az adott tag egyesületének adatainak lekérdezése. |
 
 [**Members (Tagok)**](#members-tagok)
-|         |                                                                                                                 |                                                             |
-|---------|-----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| `GET`   | [`/api/members/`](#get-apimembers)                                                                              | Az adott tag egyesületébe tartozó összes tag lekérdezése.   |
-| `GET`   | [`/api/members/{id}`](#get-apimembersid)                                                                        | Egy adott tag adatainak lekérése az azonosítója alapján.    |
-| `GET`   | [`/api/members/me`](#get-apimembersme)                                                                          | Egy tag ezen keresztül tudja lekérdezni a saját adatait.    |
-| `GET`   | [`/api/members/username/{username}`](#get-apimembersusernameusername)                                           | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
-| `GET`   | [`/api/members/exists/username/{associationId}/{username}`](#get-apimembersexistsusernameassociationidusername) | Felhasználónév elérhetőségének ellenőrzése.                 |
-| `GET`   | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken)                  | Egy meghívott tag elérhető adatainak lekérdezése.           |
-| `POST`  | [`/api/members/`](#post-apimembers)                                                                             | Egy tag meghívása az egyesületbe.                           |
-| `POST`  | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken)                 | Egy meghívott tag regisztrálása.                            |
-| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid)                                                           | Egy tag email címének módosítása.                           |
-| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine)                                                         | Egy tag ezen keresztül tudja módosítani saját email címét.  |
-| `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine)                                             | Egy tag felhasználónevének/jelszavának módosítása.          |
-| `PATCH` | [`/api/members/{id}`](#patch-apimembersid)                                                                      | Egy tag egyéb adatainak módosítása.                         |
-| `PATCH` | [`/api/members/me`](#patch-apimembersid)                                                                        | Egy tag ezen keresztül tudja módosítani az egyéb adatait.   |
-| `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid)                                   | Egyesületvezető jog átruházása.                             |
+|         |                                                                                                                   |                                                             |
+|---------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `GET`   | [`/api/members/`](#get-apimembers)                                                                                | Az adott tag egyesületébe tartozó összes tag lekérdezése.   |
+| `GET`   | [`/api/members/{id}`](#get-apimembersid)                                                                          | Egy adott tag adatainak lekérése az azonosítója alapján.    |
+| `GET`   | [`/api/members/me`](#get-apimembersme)                                                                            | Egy tag ezen keresztül tudja lekérdezni a saját adatait.    |
+| `GET`   | [`/api/members/username/{username}`](#get-apimembersusernameusername)                                             | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
+| `GET`   | [`/api/members/exists/username/{associationId}/{username}`](#get-apimembersexistsusernameassociationidusername)   | Felhasználónév elérhetőségének ellenőrzése.                 |
+| `GET`   | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken)                    | Egy meghívott tag elérhető adatainak lekérdezése.           |
+| `POST`  | [`/api/members/`](#post-apimembers)                                                                               | Egy tag meghívása az egyesületbe.                           |
+| `POST`  | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken)                   | Egy meghívott tag regisztrálása.                            |
+| `POST`  | [`/api/members/forgotten-password`](#post-apimembersforgotten-password)                                           | Elfelejtett jelszó helyreállítása.                          |
+| `POST`  | [`/api/members/forgotten-password/{id}/{restorationToken}`](#post-apimembersforgotten-passwordidrestorationtoken) | Elfelejtett jelszó helyreállítása.                          |
+| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid)                                                             | Egy tag email címének módosítása.                           |
+| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine)                                                           | Egy tag ezen keresztül tudja módosítani saját email címét.  |
+| `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine)                                               | Egy tag felhasználónevének/jelszavának módosítása.          |
+| `PATCH` | [`/api/members/{id}`](#patch-apimembersid)                                                                        | Egy tag egyéb adatainak módosítása.                         |
+| `PATCH` | [`/api/members/me`](#patch-apimembersid)                                                                          | Egy tag ezen keresztül tudja módosítani az egyéb adatait.   |
+| `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid)                                     | Egyesületvezető jog átruházása.                             |
 
 
 
@@ -442,6 +444,51 @@ Content-Type: `application/json`
 - *`email`* - a jelszavát helyreállítani kivánó tag e-mail címe
 
 Ha a megadott e-mail címmel valóban létezik tag, akkor arra a címre egy helyreállító link kerül küldésre. 
+
+Pl.:
+
+```rest
+POST /api/members/forgotten-password
+Content-Type: application/json
+
+{
+  "associationId": "652f7b95fc13ae3ce86c7cdf",
+  "email": "member@example.com"
+}
+```
+
+A válasz formátuma:
+```json
+{
+  "email": "member@example.com"
+} 
+```
+
+### `POST` `/api/members/forgotten-password/{id}/{restorationToken}`
+
+A jelszavukat elfelejtett tagok ezen a végponton keresztül tudnak új jelszót megadni.
+
+**Parameters:**
+- `id` - a tag azonosítója
+- `restorationToken` - a helyreállítási token
+
+**Kérés formátuma:**  
+Content-Type: `application/json`
+
+- *`password`* - az egyesület azonosítója
+
+Pl.:
+
+```rest
+POST /api/members/forgotten-password/652f85c4fc13ae3d596c7cde/rbzdaewl4tc74xiu5tdd
+Content-Type: application/json
+
+{
+  "password": "IWontForgetItAgain123"
+}
+```
+
+?: A válasz formátuma
 
 ### `PATCH` `/api/members/email/{id}`
 
