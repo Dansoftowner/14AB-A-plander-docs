@@ -509,7 +509,7 @@ A végpont működéséről a következőket mondhatjuk el:
 
 * A kérés küldője a saját e-mail címét módosíthatja (ebben az esetben a saját *id*-t adja meg).
 
-* Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott linket.
+* Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott **verifikációs linket**.
 
 * Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag e-mail címét módosíthatja.
 
@@ -543,6 +543,41 @@ A válasz formátuma:
 ### `PATCH` `/api/members/email/mine`
 
 A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t.*)
+
+### `PATCH` `/api/members/email/{id}/{verificationToken}`
+
+A tagok ezen a végponton keresztül tudják véglegesíteni a megváltoztatott e-mail címet. Az e-mail cím valójában csak ekkor fog megváltozni az adatbázisban.  
+Tipikusan azután lesz ez a végpont meghívva, amiután a tag megnyitotta az e-mail címére kapott **verifikációs linket**.
+
+**Parameters:**
+- `id` - a módosítandó tag azonosítója
+- `verificationToken` - a verifikációs token
+
+**Kérés formátuma:**  
+Habár ez egy patch kérés, a **törzsben semmit sem kell küldeni.**
+
+
+Pl.:
+
+```rest
+PATCH /api/members/email/652f85c4fc13ae3d596c7cde/rbzdaewl4tc74xiu5tdd
+```
+
+A válasz formátuma:
+```json
+{
+    "_id": "652f85c4fc13ae3d596c7cde",
+    "associationId": "652f7b95fc13ae3ce86c7cdf" ,
+    "username": "gizaac0",
+    "officialIdentifier": "4148009",
+    "name": "Horváth Csaba",
+    "address": "929 Brentwood Hill",
+    "idNumber": "594771CQ",
+    "email": "newemail@example.com",
+    "phoneNumber": "+256 (776) 361-0286",
+    "roles": ["member", "manager"]
+}
+```
 
 ### `PATCH` `/api/members/credentials/mine`
 
