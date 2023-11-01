@@ -24,14 +24,13 @@
 | `POST`  | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken)                   | Egy meghívott tag regisztrálása.                            |
 | `POST`  | [`/api/members/forgotten-password`](#post-apimembersforgotten-password)                                           | Elfelejtett jelszó helyreállítása.                          |
 | `POST`  | [`/api/members/forgotten-password/{id}/{restorationToken}`](#post-apimembersforgotten-passwordidrestorationtoken) | Új jelszó beállítása az elfelejtett jelszó helyett.         |
-| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid)                                                             | Egy tag email címének módosítása.                           |
-| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine)                                                           | Egy tag ezen keresztül tudja módosítani saját email címét.  |
+| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid)                                                             | Egy tag e-mail címének módosítása.                          |
+| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine)                                                           | Egy tag ezen keresztül tudja módosítani saját e-mail címét. |
+| `PATCH` | [`/api/members/email/{id}/{verificationToken}`](#patch-apimembersemailidverificationtoken)                        | Egy tag új e-mail címének véglegesítése.                    |
 | `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine)                                               | Egy tag felhasználónevének/jelszavának módosítása.          |
 | `PATCH` | [`/api/members/{id}`](#patch-apimembersid)                                                                        | Egy tag adatainak módosítása.                               |
 | `PATCH` | [`/api/members/me`](#patch-apimembersme)                                                                          | Egy tag ezen keresztül tudja módosítani a saját adatait.    |
 | `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid)                                     | Egyesületvezető jog átruházása.                             |
-
-
 
 ## Associations (Egyesületek)
 
