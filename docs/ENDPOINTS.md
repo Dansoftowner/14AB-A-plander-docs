@@ -5,32 +5,32 @@
 ### Áttekintés
 
 [**Associations (Egyesületek)**](#associations-egyesületek)
-|       |                                                      |                                                   |
+| | | |
 |-------|------------------------------------------------------|---------------------------------------------------|
-| `GET` | [`/api/associations/`](#get-apiassociations)         | Összes egyesület lekérdezése.                     |
-| `GET` | [`/api/associations/{id}`](#get-apiassociationsid)   | Egy adott egyesület adatainak lekérdezése.        |
+| `GET` | [`/api/associations/`](#get-apiassociations) | Összes egyesület lekérdezése. |
+| `GET` | [`/api/associations/{id}`](#get-apiassociationsid) | Egy adott egyesület adatainak lekérdezése. |
 | `GET` | [`/api/associations/mine`](#get-apiassociationsmine) | Az adott tag egyesületének adatainak lekérdezése. |
 
 [**Members (Tagok)**](#members-tagok)
-|         |                                                                                                                   |                                                             |
+| | | |
 |---------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| `GET`   | [`/api/members/`](#get-apimembers)                                                                                | Az adott tag egyesületébe tartozó összes tag lekérdezése.   |
-| `GET`   | [`/api/members/{id}`](#get-apimembersid)                                                                          | Egy adott tag adatainak lekérése az azonosítója alapján.    |
-| `GET`   | [`/api/members/me`](#get-apimembersme)                                                                            | Egy tag ezen keresztül tudja lekérdezni a saját adatait.    |
-| `GET`   | [`/api/members/username/{username}`](#get-apimembersusernameusername)                                             | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
-| `GET`   | [`/api/members/exists/username/{associationId}/{username}`](#get-apimembersexistsusernameassociationidusername)   | Felhasználónév elérhetőségének ellenőrzése.                 |
-| `GET`   | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken)                    | Egy meghívott tag elérhető adatainak lekérdezése.           |
-| `POST`  | [`/api/members/`](#post-apimembers)                                                                               | Egy tag meghívása az egyesületbe.                           |
-| `POST`  | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken)                   | Egy meghívott tag regisztrálása.                            |
-| `POST`  | [`/api/members/forgotten-password`](#post-apimembersforgotten-password)                                           | Elfelejtett jelszó helyreállítása.                          |
-| `POST`  | [`/api/members/forgotten-password/{id}/{restorationToken}`](#post-apimembersforgotten-passwordidrestorationtoken) | Új jelszó beállítása az elfelejtett jelszó helyett.         |
-| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid)                                                             | Egy tag e-mail címének módosítása.                          |
-| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine)                                                           | Egy tag ezen keresztül tudja módosítani saját e-mail címét. |
-| `PATCH` | [`/api/members/email/{id}/{verificationToken}`](#patch-apimembersemailidverificationtoken)                        | Egy tag új e-mail címének véglegesítése.                    |
-| `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine)                                               | Egy tag felhasználónevének/jelszavának módosítása.          |
-| `PATCH` | [`/api/members/{id}`](#patch-apimembersid)                                                                        | Egy tag adatainak módosítása.                               |
-| `PATCH` | [`/api/members/me`](#patch-apimembersme)                                                                          | Egy tag ezen keresztül tudja módosítani a saját adatait.    |
-| `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid)                                     | Egyesületvezető jog átruházása.                             |
+| `GET` | [`/api/members/`](#get-apimembers) | Az adott tag egyesületébe tartozó összes tag lekérdezése. |
+| `GET` | [`/api/members/{id}`](#get-apimembersid) | Egy adott tag adatainak lekérése az azonosítója alapján. |
+| `GET` | [`/api/members/me`](#get-apimembersme) | Egy tag ezen keresztül tudja lekérdezni a saját adatait. |
+| `GET` | [`/api/members/username/{username}`](#get-apimembersusernameusername) | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
+| `GET` | [`/api/members/exists/username/{associationId}/{username}`](#get-apimembersexistsusernameassociationidusername) | Felhasználónév elérhetőségének ellenőrzése. |
+| `GET` | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken) | Egy meghívott tag elérhető adatainak lekérdezése. |
+| `POST` | [`/api/members/`](#post-apimembers) | Egy tag meghívása az egyesületbe. |
+| `POST` | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken) | Egy meghívott tag regisztrálása. |
+| `POST` | [`/api/members/forgotten-password`](#post-apimembersforgotten-password) | Elfelejtett jelszó helyreállítása. |
+| `POST` | [`/api/members/forgotten-password/{id}/{restorationToken}`](#post-apimembersforgotten-passwordidrestorationtoken) | Új jelszó beállítása az elfelejtett jelszó helyett. |
+| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid) | Egy tag e-mail címének módosítása. |
+| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine) | Egy tag ezen keresztül tudja módosítani saját e-mail címét. |
+| `PATCH` | [`/api/members/email/{id}/{verificationToken}`](#patch-apimembersemailidverificationtoken) | Egy tag új e-mail címének véglegesítése. |
+| `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine) | Egy tag felhasználónevének/jelszavának módosítása. |
+| `PATCH` | [`/api/members/{id}`](#patch-apimembersid) | Egy tag adatainak módosítása. |
+| `PATCH` | [`/api/members/me`](#patch-apimembersme) | Egy tag ezen keresztül tudja módosítani a saját adatait. |
+| `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid) | Egyesületvezető jog átruházása. |
 
 ## Associations (Egyesületek)
 
@@ -108,7 +108,7 @@ A válasz formátuma:
 
 ### `GET` `/api/associations/mine`
 
-Az adott tag egyesületének adatainak lekérdezése. (*Gyakorlatilag egy egyszerűsített változata az előzőleg bemutatott végpontnak, de ez a token-ből nyeri ki az id-t.*)
+Az adott tag egyesületének adatainak lekérdezése. (_Gyakorlatilag egy egyszerűsített változata az előzőleg bemutatott végpontnak, de ez a token-ből nyeri ki az id-t._)
 
 **Required http headers:**
 
@@ -241,7 +241,7 @@ A válasz formátuma:
 
 ### `GET` `/api/members/me`
 
-Egy tag ezen keresztül tudja lekérdezni a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#get-apimembersid), de ez a token-ből nyeri ki az id-t.*)
+Egy tag ezen keresztül tudja lekérdezni a saját adatait. (_Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#get-apimembersid), de ez a token-ből nyeri ki az id-t._)
 
 ### `GET` `/api/members/username/{username}`
 
@@ -291,6 +291,7 @@ A válasz formátuma:
 Ezen a végponton keresztül egyszerűen le lehet ellenőrizni, hogy az adott felhasználónév az egyesületen belül elérhető vagy nem.
 
 **Parameters:**
+
 - `associationId` - egyesület azonosítója
 - `username` - az ellenőrizni kívánt felhasználónév
 
@@ -305,13 +306,15 @@ A válasz formátuma:
 ```json
 false
 ```
-*Egyszerű json `boolean` értékkel.*
+
+_Egyszerű json `boolean` értékkel._
 
 ### `GET` `/api/members/register/{id}/{registrationToken}`
 
-Ez a végpont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza. *Csak megerősítetlen, még regisztráció előtt álló tagok esetében releváns.* 
+Ez a végpont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza. _Csak megerősítetlen, még regisztráció előtt álló tagok esetében releváns._
 
 **Parameters:**
+
 - `id` - a tag azonosítója
 - `registrationToken` - a **regisztrációs token**
 
@@ -321,15 +324,17 @@ Pl.:
 GET /api/members/register/652f85c4fc13ae3d596c7cde/4vcmk1uzezrx7uc9bb5a19iu0cbsgd
 ```
 
-A válasz formátuma:  
+A válasz formátuma:
+
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
   "associationId": "652f7b95fc13ae3ce86c7cdf",
   "email:": "member@example.com",
   "isVerified": false
-} 
+}
 ```
+
 (Ha az egyesületvezető egyéb adatokat is megadott a tag meghívásakor az e-mail címen kívül, akkor természetesen azok is szerepelnek a válasz törzsében.)
 
 ### `POST` `/api/members`
@@ -345,15 +350,15 @@ tudják **meghívni** a további tagokat.
 Content-Type: `application/json`
 
 - `email*`
-- *`officialIdentifier`* 
-- *`name`*
-- *`address`*
-- *`idNumber`*
-- *`phoneNumber`*
+- _`officialIdentifier`_
+- _`name`_
+- _`address`_
+- _`idNumber`_
+- _`phoneNumber`_
 
-Mivel az egyesületvezetőtől nem várható el az, hogy ő maga adja meg a regisztrálandó tag összes adatát, neki **csak az e-mail címet** kell kötelezően megadnia.  
+Mivel az egyesületvezetőtől nem várható el az, hogy ő maga adja meg a regisztrálandó tag összes adatát, neki **csak az e-mail címet** kell kötelezően megadnia.
 
-A felhasználónevet és jelszót viszont kizárólag csak a tag tudja megadni később (addig ún. *unverified/megerősítetlen* állapoban van rögzítve az adatbázisban).
+A felhasználónevet és jelszót viszont kizárólag csak a tag tudja megadni később (addig ún. _unverified/megerősítetlen_ állapoban van rögzítve az adatbázisban).
 
 **A végpont meghívásakor a meghívott tag automatikusan e-mailt kap egy regisztrációs linkkel, amin keresztül később véglegesíteni tudja magát.**
 
@@ -372,33 +377,34 @@ x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zm
 A válasz formátuma:  
 Status: `201`  
 Tartalom: [A beillesztett rekord]
+
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
   "email:": "member@example.com",
   "isVerified": false
-} 
+}
 ```
-
 
 ### `POST` `/api/members/register/{id}/{registrationToken}`
 
 A **meghívott tagok** ezen a végponton keresztül tudnak **regisztrálni** és a hiányzó adataikat pótolni.
 
 **Parameters:**
+
 - `id` - a tag azonosítója
 - `registrationToken` - a **regisztrációs token**
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- *`username*`*
-- *`password*`*
-- *`officialIdentifier`* 
-- *`name*`*
-- *`address*`*
-- *`idNumber*`*
-- *`phoneNumber*`*
+- _`username_`\*
+- _`password_`\*
+- _`officialIdentifier`_
+- _`name_`\*
+- _`address_`\*
+- _`idNumber_`\*
+- _`phoneNumber_`\*
 
 Pl.:
 
@@ -417,7 +423,8 @@ Content-Type: application/json
 }
 ```
 
-A válasz formátuma:  
+A válasz formátuma:
+
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
@@ -429,20 +436,20 @@ A válasz formátuma:
   "idNumber": "594771CQ",
   "phoneNumber": "+256 (776) 361-0286",
   "isVerified": true
-} 
+}
 ```
 
 ### `POST` `/api/members/forgotten-password`
 
-Ez a végpont használható arra, hogy a tagok helyreállítsák az elfelejtett jelszavukat.  
+Ez a végpont használható arra, hogy a tagok helyreállítsák az elfelejtett jelszavukat.
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- *`associationId`* - az egyesület azonosítója
-- *`email`* - a jelszavát helyreállítani kivánó tag e-mail címe
+- _`associationId`_ - az egyesület azonosítója
+- _`email`_ - a jelszavát helyreállítani kivánó tag e-mail címe
 
-Ha a megadott e-mail címmel valóban létezik tag, akkor arra a címre egy helyreállító link kerül küldésre. 
+Ha a megadott e-mail címmel valóban létezik tag, akkor arra a címre egy helyreállító link kerül küldésre.
 
 Pl.:
 
@@ -457,10 +464,11 @@ Content-Type: application/json
 ```
 
 A válasz formátuma:
+
 ```json
 {
   "email": "member@example.com"
-} 
+}
 ```
 
 ### `POST` `/api/members/forgotten-password/{id}/{restorationToken}`
@@ -468,13 +476,14 @@ A válasz formátuma:
 A jelszavukat elfelejtett tagok ezen a végponton keresztül tudnak új jelszót megadni.
 
 **Parameters:**
+
 - `id` - a tag azonosítója
 - `restorationToken` - a helyreállítási token
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- *`password`* - az egyesület azonosítója
+- _`password`_ - az egyesület azonosítója
 
 Pl.:
 
@@ -494,25 +503,26 @@ Content-Type: application/json
 A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket, illetve az **egyesületvezetők** ezen a végponton keresztül tudják megváltoztatni a még nem megerősített (csak meghívott) tagok e-mail címét.
 
 **Parameters:**
+
 - `id` - a módosítandó tag azonosítója
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token  
+- `x-auth-token` - a tagot azonosító token
 
 A végpont működéséről a következőket mondhatjuk el:
 
-* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az e-mail címe nem módosítható.
+- Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az e-mail címe nem módosítható.
 
-* Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** e-mail címét **nem módosíthatja**.
+- Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** e-mail címét **nem módosíthatja**.
 
-* A kérés küldője a saját e-mail címét módosíthatja (ebben az esetben a saját *id*-t adja meg).
+- A kérés küldője a saját e-mail címét módosíthatja (ebben az esetben a saját _id_-t adja meg).
 
-* Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott **verifikációs linket**.
+- Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott **verifikációs linket**.
 
-* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag e-mail címét módosíthatja.
+- Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag e-mail címét módosíthatja.
 
-* Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
+- Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
@@ -541,7 +551,7 @@ A válasz formátuma:
 
 ### `PATCH` `/api/members/email/mine`
 
-A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t.*)
+A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (_Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t._)
 
 ### `PATCH` `/api/members/email/{id}/{verificationToken}`
 
@@ -549,12 +559,12 @@ A tagok ezen a végponton keresztül tudják véglegesíteni a megváltoztatott 
 Tipikusan azután lesz ez a végpont meghívva, amiután a tag megnyitotta az e-mail címére kapott **verifikációs linket**.
 
 **Parameters:**
+
 - `id` - a módosítandó tag azonosítója
 - `verificationToken` - a verifikációs token
 
 **Kérés formátuma:**  
 Habár ez egy patch kérés, a **törzsben semmit sem kell küldeni.**
-
 
 Pl.:
 
@@ -563,18 +573,19 @@ PATCH /api/members/email/652f85c4fc13ae3d596c7cde/rbzdaewl4tc74xiu5tdd
 ```
 
 A válasz formátuma:
+
 ```json
 {
-    "_id": "652f85c4fc13ae3d596c7cde",
-    "associationId": "652f7b95fc13ae3ce86c7cdf" ,
-    "username": "gizaac0",
-    "officialIdentifier": "4148009",
-    "name": "Horváth Csaba",
-    "address": "929 Brentwood Hill",
-    "idNumber": "594771CQ",
-    "email": "newemail@example.com",
-    "phoneNumber": "+256 (776) 361-0286",
-    "roles": ["member", "manager"]
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "associationId": "652f7b95fc13ae3ce86c7cdf",
+  "username": "gizaac0",
+  "officialIdentifier": "4148009",
+  "name": "Horváth Csaba",
+  "address": "929 Brentwood Hill",
+  "idNumber": "594771CQ",
+  "email": "newemail@example.com",
+  "phoneNumber": "+256 (776) 361-0286",
+  "roles": ["member", "manager"]
 }
 ```
 
@@ -584,13 +595,13 @@ A tagok ezen a végponton keresztül tudják megváltoztatni a felhasználónev�
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token  
-- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég** 
+- `x-auth-token` - a tagot azonosító token
+- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- `username` - az új felhasználónév (***egyesületen belül egyedinek kell lennie***)
+- `username` - az új felhasználónév (**_egyesületen belül egyedinek kell lennie_**)
 - `password` - az új jelszó
 
 Értelemszerűen csak akkor van a kérésnek értelme, ha a felhasználónév és/vagy jelszó meg van adva.
@@ -613,47 +624,48 @@ A válasz formátuma:
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
-  "updated": [ "password" ]
+  "updated": ["password"]
 }
 ```
 
-
 ### `PATCH` `/api/members/{id}`
 
-Egy **egyesületvezető** ezen a végponton keresztül tudja módosítani a **megerősítetlen** tagok adatait, illetve egy tag a saját adatait. 
+Egy **egyesületvezető** ezen a végponton keresztül tudja módosítani a **megerősítetlen** tagok adatait, illetve egy tag a saját adatait.
 
 **Parameters:**
+
 - `id` - a módosítandó tag azonosítója
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token  
+- `x-auth-token` - a tagot azonosító token
 
 A végpont működéséről a következőket mondhatjuk el:
 
-* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
+- Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
 
-* Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** adatait **nem módosíthatja**.
+- Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** adatait **nem módosíthatja**.
 
-* Ha a kérés küldője nem egyesületvezető, de **megegyezik** az azonosítója alapján a **módosítandó taggal**, akkor az adatait módosíthatja.
+- Ha a kérés küldője nem egyesületvezető, de **megegyezik** az azonosítója alapján a **módosítandó taggal**, akkor az adatait módosíthatja.
 
-* Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.  
-Kívételt jelent:
+- Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag adatait módosíthatja.  
+  Kívételt jelent:
+
   - `preferences` - az adott tag egyéni beállításait csak az adott tag módosíthatja
 
-* **A rangokat nincs lehetőség ezen a végponton keresztül módosítani.**
+- **A rangokat nincs lehetőség ezen a végponton keresztül módosítani.**
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
-- *`username`*
-- *`password`*
-- *`officialIdentifier`* 
-- *`name`*
-- *`address`*
-- *`idNumber`*
-- *`phoneNumber`*
-- *`preferences`*
+- _`username`_
+- _`password`_
+- _`officialIdentifier`_
+- _`name`_
+- _`address`_
+- _`idNumber`_
+- _`phoneNumber`_
+- _`preferences`_
 
 Pl.:
 
@@ -670,6 +682,7 @@ x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zm
 ```
 
 A válasz formátuma:
+
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
@@ -681,16 +694,16 @@ A válasz formátuma:
   "idNumber": "1232IQ",
   "phoneNumber": "+1020113301",
   "isVerified": true
-} 
+}
 ```
 
 ### `PATCH` `/api/members/me`
 
-Egy tag ezen keresztül tudja módosítani a saját adatait. (*Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersid), de ez a token-ből nyeri ki az id-t.*)
+Egy tag ezen keresztül tudja módosítani a saját adatait. (_Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersid), de ez a token-ből nyeri ki az id-t._)
 
 ### `PATCH` `/api/members/transfer-my-roles/{id}`
 
-Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot *egyesületvezető ranggal* (`manager`).
+Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot _egyesületvezető ranggal_ (`manager`).
 
 **Parameters:**
 
@@ -703,14 +716,13 @@ Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű
 **Required http headers:**
 
 - `x-auth-token` - a tagot azonosító token
-- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég** 
+- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
 
 A végpont működéséről a következőket mondhatjuk el:
 
-
-* Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor a kérés nem érvényes.
-* Ha a kérést küldő tag **nem egyesületvezető**, a kérésnek **nincs jelentősége**
-* Habár ez egy `patch` kérés, a törzsben semmit sem kell küldeni
+- Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor a kérés nem érvényes.
+- Ha a kérést küldő tag **nem egyesületvezető**, a kérésnek **nincs jelentősége**
+- Habár ez egy `patch` kérés, a törzsben semmit sem kell küldeni
 
 Pl.:
 
@@ -722,10 +734,55 @@ x-auth-password: SuperSafe123
 ```
 
 A válasz formátuma:
+
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
   "roles": ["member", "manager"]
-} 
+}
 ```
-*A felruházott tag azonosítója, és jogai.*
+
+_A felruházott tag azonosítója, és jogai._
+
+### `DELETE` `/api/members/{id}`
+
+Az **egyesületvezető** ezen a végponton keresztül tudja eltávolítani az adott tagot az egyesületéből.
+
+**Parameters:**
+
+- `id` - a kitörlendő tag azonosítója
+
+**Required http headers:**
+
+- `x-auth-token` - a tagot azonosító token
+- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
+
+A végpont működéséről a következőket mondhatjuk el:
+
+- Az egyesületvezető magát csak akkor tudja kitörölni, ha van más egyesületvezető az egyesületben
+- Az egyesületvezető más egyesületvezetőket (ha vannak) nem tud kitörölni
+
+Pl.:
+
+```rest
+DELETE /api/members/652f85c4fc13ae3d596c7cde
+x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-auth-password: SuperSafe123
+```
+
+A válasz formátuma:
+
+```json
+{
+  "_id": "652f85c4fc13ae3d596c7cde",
+  "associationId": "652f7b95fc13ae3ce86c7ce3",
+  "username": "lbaldery4",
+  "officialIdentifier": "9487701",
+  "name": "Váczi Károly",
+  "address": "0 Marquette Hill",
+  "idNumber": "866925HP",
+  "email": "tbrucker4@umich.edu",
+  "phoneNumber": "+84 (728) 209-0572",
+  "roles": ["member", "manager"]
+}
+```
