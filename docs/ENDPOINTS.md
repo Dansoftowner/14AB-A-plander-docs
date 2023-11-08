@@ -13,7 +13,7 @@
 
 [**Members (Tagok)**](#members-tagok)
 | | | |
-|---------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+|----------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
 | `GET` | [`/api/members/`](#get-apimembers) | Az adott tag egyesületébe tartozó összes tag lekérdezése. |
 | `GET` | [`/api/members/{id}`](#get-apimembersid) | Egy adott tag adatainak lekérése az azonosítója alapján. |
 | `GET` | [`/api/members/me`](#get-apimembersme) | Egy tag ezen keresztül tudja lekérdezni a saját adatait. |
@@ -31,6 +31,7 @@
 | `PATCH` | [`/api/members/{id}`](#patch-apimembersid) | Egy tag adatainak módosítása. |
 | `PATCH` | [`/api/members/me`](#patch-apimembersme) | Egy tag ezen keresztül tudja módosítani a saját adatait. |
 | `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid) | Egyesületvezető jog átruházása. |
+| `DELETE` | [`/api/members/{id}`](#delete-apimembersid) | Tagok törlése |
 
 ## Associations (Egyesületek)
 
