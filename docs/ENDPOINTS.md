@@ -4,6 +4,11 @@
 
 ### Áttekintés
 
+[**Authentication (Autentikáció)**](#authentication-autentikáció)
+| | | |
+|-------|------------------------------------------------------|---------------------------------------------------|
+| `POST` | [`/api/auth/`](#post-apiauth) | Bejelentkezés. |
+
 [**Associations (Egyesületek)**](#associations-egyesületek)
 | | | |
 |-------|------------------------------------------------------|---------------------------------------------------|
@@ -32,6 +37,54 @@
 | `PATCH` | [`/api/members/me`](#patch-apimembersme) | Egy tag ezen keresztül tudja módosítani a saját adatait. |
 | `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid) | Egyesületvezető jog átruházása. |
 | `DELETE` | [`/api/members/{id}`](#delete-apimembersid) | Tagok törlése |
+
+## Authentication (Autentikáció)
+
+Az autentikáció [Json Web Token](https://jwt.io/)-ek (JWT) által történik.
+A webalkalmazás esetében a JWT **sütiben** van eltárolva,
+a natív alkalmazások viszont a token-t egy `x-auth-token` http fejlécben kell elküldjék.
+Ezért azon végpontoknál, ahol a `x-auth-token` fejléc elvártnak van jelölve,
+ott ez csak a natív alkalmazásokra vonatkozik,
+hiszen a webböngésző automatikusan elküldi a **sütiben** tárolt JWT-t.
+
+### `POST` `/api/auth`
+
+A bejelentkezéshez szükséges végpont.
+
+**A kérés formátuma:**  
+Content-Type: `application/json`
+
+- `associationId`: a szervezet azonosítója
+- `user`: a felhasználónév vagy email cím
+- `password`: a tag jelszava
+
+**A válasz formátuma:**
+
+- Ha az autentikáció sikerült, akkor a szerver a token-t **sütiben** visszaküldi
+- Annak érdekében, hogy a token-t natív alkalmazások is el tudják tárolni a későbbi kommunikáció érdekében,
+  a JWT a **válasz törzsében is megtalálható**
+
+Pl.:
+
+```rest
+POST /api/auth
+Content-Type: application/json
+
+{
+  "associationId": "652f7b95fc13ae3ce86c7cdf",
+  "user": "ccolebeck0",
+  "password": "mypassword23"
+}
+```
+
+A válasz formátuma:
+
+- Content-Type: `application/json`
+- Set-Cookie: `plander_auth_token=eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo; SameSite=Lax; HttpOnly`
+
+```json
+"eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo"
+```
 
 ## Associations (Egyesületek)
 
