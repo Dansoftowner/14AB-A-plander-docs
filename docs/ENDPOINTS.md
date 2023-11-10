@@ -47,6 +47,11 @@ Ezért azon végpontoknál, ahol a `x-auth-token` fejléc elvártnak van jelölv
 ott ez csak a natív alkalmazásokra vonatkozik,
 hiszen a webböngésző automatikusan elküldi a **sütiben** tárolt JWT-t.
 
+**Speciális esetek, amikor nem JWT-nel történik az autentikáció**:
+
+- Egy meghívott tag regisztrálásakor ()
+- Egy tag elfelejtett jelszavának megváltoztatásakor
+
 ### `POST` `/api/auth`
 
 A bejelentkezéshez szükséges végpont.
