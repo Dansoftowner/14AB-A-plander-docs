@@ -70,4 +70,7 @@ Lehetővé kell tenni, hogy a szolgálatvégzés alatt is módosítható legyen 
 ### Profilok
 Minden felhasználó hozzáfér saját személyes adataihoz, és beállításaihoz, amik a profiljához vannak kapcsolva. Ezeket a Profil(*=korábbi Beállítások*) fül alatt tekinthet meg.
 
+### Bejelentkezés asztali webhelyen
+***Felvetés*** A bejelentkező fülön az aktuálisan kiválasztott egyesület logója jelenik meg. Ebben az esetben ezt is adatbázisban kéne tárolni egységes méretben es formátumban.
+
 
