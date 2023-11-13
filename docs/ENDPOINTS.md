@@ -49,8 +49,9 @@ hiszen a webböngésző automatikusan elküldi a **sütiben** tárolt JWT-t.
 
 **Speciális esetek, amikor nem JWT-nel történik az autentikáció**:
 
-- Egy meghívott tag regisztrálásakor ()
-- Egy tag elfelejtett jelszavának megváltoztatásakor
+- Amikor egy meghívott tag regisztrál (ilyenkor az email-ben küldött URL-ben található **regisztrációs token**-nel történik a hitelesítés)
+- Egy tag elfelejtett jelszavának megváltoztatásakor (ilyenkor az email-ben küldött URL-ben található **helyreállítási token**-nel történik a hitelesítés)
+- Egy tag új email-címének módosításakor (ilyenkor az email-ben küldött URL-ben található **verifikációs token**-nel történik a hitelesítés)
 
 ### `POST` `/api/auth`
 
@@ -59,9 +60,10 @@ A bejelentkezéshez szükséges végpont.
 **A kérés formátuma:**  
 Content-Type: `application/json`
 
-- `associationId`: a szervezet azonosítója
-- `user`: a felhasználónév vagy email cím
-- `password`: a tag jelszava
+- `associationId*`: a szervezet azonosítója
+- `user*`: a felhasználónév vagy email cím
+- `password*`: a tag jelszava
+- `isAutoLogin`: opcionális logikai érték; akkor `true`, ha a felhasználó automatikus bejelentkezést akar később (ez csak a webalkalmazás esetén releváns)
 
 **A válasz formátuma:**
 
@@ -78,7 +80,8 @@ Content-Type: application/json
 {
   "associationId": "652f7b95fc13ae3ce86c7cdf",
   "user": "ccolebeck0",
-  "password": "mypassword23"
+  "password": "mypassword23",
+  "isAutoLogin": false
 }
 ```
 
@@ -90,6 +93,10 @@ A válasz formátuma:
 ```json
 "eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo"
 ```
+
+### `POST` `/api/logout`
+
+**Csak webalkalmazás esetén releváns:** a token sütijét törli.
 
 ## Associations (Egyesületek)
 
@@ -372,6 +379,8 @@ _Egyszerű json `boolean` értékkel._
 
 Ez a végpont egy **meghívott tag** egyesületvezető által megadott adatait adja vissza. _Csak megerősítetlen, még regisztráció előtt álló tagok esetében releváns._
 
+Tipikusan azután lesz ez a végpont meghívva, amiután a meghívott tag megnyitotta az e-mail címére kapott **regisztrációs linket**.
+
 **Parameters:**
 
 - `id` - a tag azonosítója
@@ -448,6 +457,8 @@ Tartalom: [A beillesztett rekord]
 ### `POST` `/api/members/register/{id}/{registrationToken}`
 
 A **meghívott tagok** ezen a végponton keresztül tudnak **regisztrálni** és a hiányzó adataikat pótolni.
+
+Tipikusan azután lesz ez a végpont meghívva, amiután a meghívott tag megnyitotta az e-mail címére kapott **regisztrációs linket**.
 
 **Parameters:**
 
@@ -533,6 +544,8 @@ A válasz formátuma:
 ### `POST` `/api/members/forgotten-password/{id}/{restorationToken}`
 
 A jelszavukat elfelejtett tagok ezen a végponton keresztül tudnak új jelszót megadni.
+
+Tipikusan azután lesz ez a végpont meghívva, amiután a tag megnyitotta az e-mail címére kapott **helyreállítási linket**.
 
 **Parameters:**
 
