@@ -23,7 +23,7 @@ A dokumentum a kezdetleges, eddig eltervezett funkciók felsorolását tartalmaz
 - `Remember me` funkció
 - Sikeres bejelentkezés után átirányítás a kezdőlapra (_Főoldal_)
 - Bejelentkezést követően a felhasználó vagy **"egyszerű" tag**, vagy **egyesületvezető** jogokkal rendelkezik
-- ["Elfelejtett jelszó helyreállítása" funkció]()
+- ["Elfelejtett jelszó helyreállítása" funkció](#elfelejtett-jelszó-helyreállítása)
 
 ### Főoldal - Webes verzió!
 
