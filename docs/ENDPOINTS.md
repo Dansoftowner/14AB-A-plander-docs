@@ -8,6 +8,7 @@
 | | | |
 |-------|------------------------------------------------------|---------------------------------------------------|
 | `POST` | [`/api/auth/`](#post-apiauth) | Bejelentkezés. |
+| `POST` | [`/api/logout/`](#post-apilogout) | Kijelentkezés. |
 
 [**Associations (Egyesületek)**](#associations-egyesületek)
 | | | |
