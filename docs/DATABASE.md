@@ -1,5 +1,7 @@
 # Adatbázis
 
+A Plander NoSQL (MongoDB) adatbázist használ az adatok tárolásához.
+
 ## Kollekciók
 
 ### associations (Egyesületek)
