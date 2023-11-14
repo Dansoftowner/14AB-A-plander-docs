@@ -98,7 +98,7 @@ Példa dokumentumok:
   "_id": "652f866cfc13ae3ce86c7ce6",
   "isRegistered": false,
   "association": "652f7b95fc13ae3ce86c7cdf",
-  "email": "bverchambre0@alibaba.com",
+  "email": "aarobbab@bob.com",
   "roles": ["member", "manager"]
 }
 ```
