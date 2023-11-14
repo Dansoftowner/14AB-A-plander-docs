@@ -67,6 +67,8 @@ A React kódoknál tsx fájlokat használunk, erre minden TypeScript sajátossá
 //jó
   const myGoodVariable = 22
   ```
+- Egyéni css osztály létrehozásakor ügyeljünk az osztály elnevezési konvenciójára, mely kebab-case alapú, azonban szerepelnie kell az adott komponens nevének benne:
+  `counter-header-elements`, itt a `counter` a komponens neve, ezután pedig az osztály neve, mely utal a használati helyére
 ### Könyvtár felépítés
 - Minden komponens az `src/components/` mappába kerülnek, ezen belül minden komponens kap egy saját mappát, (pl.: `Counter.tsx` komponens esetén: `Counter` mappába kerül a `.tsx` és a `css` fájl, ha van)
 - A saját hook-ok az `src/hooks` mappába kerülnek, a hook elnevezésének formátuma szigorú: `useHook`, a use szóval kezdődjön és utána a funkcióra utaló neve (pl.: Data fetch-hez használt hook: `useData`)
