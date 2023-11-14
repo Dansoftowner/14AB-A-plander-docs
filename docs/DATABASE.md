@@ -102,3 +102,15 @@ Példa dokumentumok:
   "roles": ["member", "manager"]
 }
 ```
+
+### _registration_tokens (Regisztrációs token-ek)_
+
+Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráció előtt álló tagok azonosítására szükségesek.
+
+**Mezők:**
+- `_id`*: ObjectId
+- `memberId`*: ObjectId
+  - A tag azonosítója.
+- `token`*: String
+  - A random generált token string.
+  - Titkosított formában van tárolva (BCrypt hash).
