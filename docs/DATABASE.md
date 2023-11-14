@@ -114,3 +114,15 @@ Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráci
 - `token`*: String
   - A random generált token string.
   - Titkosított formában van tárolva (BCrypt hash).
+
+### _restoration_tokens (Helyreállítási token-ek)_ 
+
+Ez a kollekció tárolja a **helyreállítási token**eket, amelyek azon tagok azonosítására szükségesek, akik az elfelejtett jelszavuk helyreállítása előtt állnak.
+
+**Mezők:**
+- `_id`*: ObjectId
+- `memberId`*: ObjectId
+  - A tag azonosítója.
+- `token`*: String
+  - A random generált token string.
+  - Titkosított formában van tárolva (BCrypt hash).
