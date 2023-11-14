@@ -33,31 +33,37 @@ A tagok adatait tárolja.
 
 **Mezők:**
 
-- `_id`\*: ObjectId
-- `guardNumber` (OPSZ-igazolványszám): String
-  - Polgárőr igazolvány száma
-  - 3 szekcióból áll, ebből az első 2 az egyesületet azonosítja (lsd. [`associations` kollekcióban](#associations-egyesületek) a `certificate` mezőt), a 3. az egyedet
-- `association`\* (Egyesületazonosító): ObjectId
+*Jelölések: `**` - minden esetben kötelező, `*` - csak abban az esetben kötelező, ha a felhasználó felregisztrált állapotban van (ha az `isRegistered` értéke `true`)*
+
+- **`_id`**\*\*: ObjectId
+- **`isRegistered`**\*\*: Boolean 
+  - Értéke `true`, ha a tag felregisztrált, `false` ha csak meghívott állapotban van
+- **`email`**\*\* (Email): String
+  - **Egyesületen belül egyedi**
+- **`association`**\*\* (Egyesületazonosító): ObjectId
   - **Külső kulcsként** szolgál az egyesület azonosítására.
-- `username`\* (Felhasználónév): String
+- **`username`**\* (Felhasználónév): String
   - **Egyesületen belül egyedi.**
-- `password`\* (Jelszó): String
+- **`password`**\* (Jelszó): String
   - Titkosított formában van tárolva (Bcrypt hash)
   - [Jelszó megkötések](#jelszó-megkötések)
-- `name`\* (Név): String
+- **`name`**\* (Név): String
   - Teljes név
-- `address`\* (Lakcím): String
-- `idNumber`\* (Személy-igazolványszám): String
-- `email`\* (Email): String
+- **`address`**\* (Lakcím): String
+- **`idNumber`**\* (Személy-igazolványszám): String
   - **Egyesületen belül egyedi**
-- `phoneNumber`\* (Telefonszám): String
-- `roles`\* (Rangok): Array[String]
+- **`phoneNumber`**\* (Telefonszám): String
+- **`guardNumber`** (OPSZ-igazolványszám): String
+  - Polgárőr igazolvány száma
+  - 3 szekcióból áll, ebből az első 2 az egyesületet azonosítja (lsd. [`associations` kollekcióban](#associations-egyesületek) a `certificate` mezőt), a 3. az egyedet
+- **`roles`**\* (Rangok): Array[String]
   - A tag rangjait tároló tömb
   - Lehetséges értékek:
     - `member` - az "egyszerű" tag jelölése
     - `president` - az egyesületvezető rang jelölése
-  - Azért tároljuk tömbben, hogy a rangok listája könnyen bővíthető legyen (skálázhatóság)
-- `preferences` (Beállítások): Object
+  - Azért tároljuk tömbben, hogy a rangok listája könnyen bővíthető legyen (skálázhatóság) 
+- **`preferences`** (Beállítások): Object
+
 
 #### Jelszó megkötések
 
