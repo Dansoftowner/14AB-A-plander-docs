@@ -47,7 +47,7 @@ _Jelölések: `**` - minden esetben kötelező, `*`- csak abban az esetben köte
 - **`username`**\* (Felhasználónév): String
   - **Egyesületen belül egyedi.**
 - **`password`**\* (Jelszó): String
-  - Titkosított formában van tárolva (Bcrypt hash).
+  - Hash-elt formában van tárolva (Bcrypt hash).
   - [Jelszó megkötések](#jelszó-megkötések)
 - **`name`**\* (Név): String
   - Teljes név.
@@ -110,36 +110,39 @@ Példa dokumentumok:
 Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráció előtt álló tagok azonosítására szükségesek.
 
 **Mezők:**
-- `_id`*: ObjectId
-- `memberId`*: ObjectId
-  - A tag azonosítója.
-- `token`*: String
-  - A random generált token string.
-  - Titkosított formában van tárolva (BCrypt hash).
 
-### _restoration_tokens (Helyreállítási token-ek)_ 
+- `_id`\*: ObjectId
+- `memberId`\*: ObjectId
+  - A tag azonosítója.
+- `token`\*: String
+  - A random generált token string.
+  - Hash-elt formában van tárolva (BCrypt hash).
+
+### _restoration_tokens (Helyreállítási token-ek)_
 
 Ez a kollekció tárolja a **helyreállítási token**eket, amelyek azon tagok azonosítására szükségesek, akik az elfelejtett jelszavuk helyreállítása előtt állnak.
 
 **Mezők:**
-- `_id`*: ObjectId
-- `memberId`*: ObjectId
-  - A tag azonosítója.
-- `token`*: String
-  - A random generált token string.
-  - Titkosított formában van tárolva (BCrypt hash).
 
-### _verification_tokens (Verifikációs token-ek)_ 
+- `_id`\*: ObjectId
+- `memberId`\*: ObjectId
+  - A tag azonosítója.
+- `token`\*: String
+  - A random generált token string.
+  - Hash-elt formában van tárolva (BCrypt hash).
+
+### _verification_tokens (Verifikációs token-ek)_
 
 Ez a kollekció tárolja a **verifikációs token**eket, amelyek azon tagok azonosítására szükségesek, akik meg akarják változtatni az email-címüket.
 
 **Mezők:**
-- `_id`*: ObjectId
-- `memberId`*: ObjectId
+
+- `_id`\*: ObjectId
+- `memberId`\*: ObjectId
   - A tag azonosítója.
-- `token`*: String
+- `token`\*: String
   - A random generált token string.
-  - Titkosított formában van tárolva (BCrypt hash).
+  - Hash-elt formában van tárolva (BCrypt hash).
 - `email`
   - Az új e-mail cím, amit a tag be akar állítani
-  - 
+  - Titkosított formában van tárolva (AES)
