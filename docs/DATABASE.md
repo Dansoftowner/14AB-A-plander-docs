@@ -12,8 +12,10 @@ Az egyesületet adatait tárolja.
 
 - `_id`\*: ObjectId
 - `name`\* (Név): String
+  - **Egyedi**
 - `location`\* (Cím): String
 - `certificate`\* (Tanúsítvány): String
+  - **Egyedi**
   - Az egyesület azonosítója
   - Ebből az első szekció a megye azonosítója, a második szekció azonosítja magát az egyesületet
   - Pl.: "08/0001"
