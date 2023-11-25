@@ -46,7 +46,7 @@ Ezeken túl a Prettier alapbeállításaira támaszkodunk.
 A Prettier config-ja a következő (`.prettierrc.json`):
 ```json
 {
-    "tabWidth": 4,
+    "tabWidth": 2,
     "trailingComma": "all",
     "semi": false,
     "singleQuote": true
