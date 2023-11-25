@@ -49,8 +49,7 @@ A Prettier config-ja a következő (`.prettierrc.json`):
     "tabWidth": 2,
     "trailingComma": "all",
     "semi": false,
-    "singleQuote": true,
-    "printWidth": 88
+    "singleQuote": true
 }
 ```
 ***Commit*olás előtt mindenképp formázzuk a forráskódot**, a legjobb az, hogyha beállítjuk a VSCode-ban a mentéskor való automatikus formázást!
