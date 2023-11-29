@@ -89,7 +89,7 @@ Content-Type: application/json
 A válasz formátuma:
 
 - Content-Type: `application/json`
-- Set-Cookie: `plander_auth_token=eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo; SameSite=Lax; HttpOnly`
+- Set-Cookie: `plander_auth=eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo; SameSite=Lax; HttpOnly`
 
 ```json
 "eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo"
