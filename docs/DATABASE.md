@@ -132,3 +132,26 @@ Ez a kollekció tárolja a **helyreállítási token**eket, amelyek azon tagok a
 - `token`\*: String
   - A random generált token string.
   - Hash-elt formában van tárolva (BCrypt hash).
+
+### assignments (Beosztások)
+
+Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken min. 1 tag szolgál).
+
+**Mezők:**
+
+- `_id`\*: ObjectId
+- `title`\* (Esemény neve): String
+- `location`\* (Helyszín): String
+- `association`\* (Egyesületazonosító): ObjectId
+  - **Külső kulcsként** szolgál az egyesület azonosítására.
+- `start`\* (Kezdés ideje): Date
+- `end`\* (Befejezés ideje): Date
+- `assignees` (Beosztott tagok): [Object]
+  - A beosztott tagok beágyazott objektumokként vannak eltárolva egy tömbben
+  - Ezek a beágyazott dokumentumok nem tartalmaznak az adott tagról minden információt
+    - Az `_id`-n kívül a `name` mező van eltárolva
+    - Egy beágyazott tag azonosítója refererál a `members` kollekcióban található tag azonosítójára
+  - A dokumentum beágyazás a következő előnyökkel bír:
+    - A beosztott tagokról el van tárolva egy pillanatkép (`snapshot`),
+      így ha a tag később törölve is lesz a rendszerből, a beosztások visszatekinthetőek lesznek (akár évekig, ha szükséges)
+    - Gyorsabb lekérdezéseket tesz lehetővé
