@@ -107,7 +107,7 @@ Példa dokumentumok:
 }
 ```
 
-### _registration_tokens (Regisztrációs token-ek)_
+### _registrationTokens (Regisztrációs token-ek)_
 
 Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráció előtt álló tagok azonosítására szükségesek.
 
@@ -120,7 +120,7 @@ Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráci
   - A random generált token string.
   - Hash-elt formában van tárolva (BCrypt hash).
 
-### _restoration_tokens (Helyreállítási token-ek)_
+### _restorationTokens (Helyreállítási token-ek)_
 
 Ez a kollekció tárolja a **helyreállítási token**eket, amelyek azon tagok azonosítására szükségesek, akik az elfelejtett jelszavuk helyreállítása előtt állnak.
 
