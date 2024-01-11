@@ -8,7 +8,6 @@
 | | | |
 |-------|------------------------------------------------------|---------------------------------------------------|
 | `POST` | [`/api/auth/`](#post-apiauth) | Bejelentkezés. |
-| `POST` | [`/api/logout/`](#post-apilogout) | Kijelentkezés. |
 
 [**Associations (Egyesületek)**](#associations-egyesületek)
 | | | |
@@ -24,16 +23,12 @@
 | `GET` | [`/api/members/{id}`](#get-apimembersid) | Egy adott tag adatainak lekérése az azonosítója alapján. |
 | `GET` | [`/api/members/me`](#get-apimembersme) | Egy tag ezen keresztül tudja lekérdezni a saját adatait. |
 | `GET` | [`/api/members/username/{username}`](#get-apimembersusernameusername) | Egy adott tag adatainak lekérése a felhasználóneve alapján. |
-| `GET` | [`/api/members/exists/username/{associationId}/{username}`](#get-apimembersexistsusernameassociationidusername) | Felhasználónév elérhetőségének ellenőrzése. |
 | `GET` | [`/api/members/register/{id}/{registrationToken}`](#get-apimembersregisteridregistrationtoken) | Egy meghívott tag elérhető adatainak lekérdezése. |
 | `POST` | [`/api/members/`](#post-apimembers) | Egy tag meghívása az egyesületbe. |
 | `POST` | [`/api/members/register/{id}/{registrationToken}`](#post-apimembersregisteridregistrationtoken) | Egy meghívott tag regisztrálása. |
 | `POST` | [`/api/members/forgotten-password`](#post-apimembersforgotten-password) | Elfelejtett jelszó helyreállítása. |
 | `POST` | [`/api/members/forgotten-password/{id}/{restorationToken}`](#post-apimembersforgotten-passwordidrestorationtoken) | Új jelszó beállítása az elfelejtett jelszó helyett. |
-| `PATCH` | [`/api/members/email/{id}`](#patch-apimembersemailid) | Egy tag e-mail címének módosítása. |
-| `PATCH` | [`/api/members/email/mine`](#patch-apimembersemailmine) | Egy tag ezen keresztül tudja módosítani saját e-mail címét. |
-| `PATCH` | [`/api/members/email/{id}/{verificationToken}`](#patch-apimembersemailidverificationtoken) | Egy tag új e-mail címének véglegesítése. |
-| `PATCH` | [`/api/members/credentials/mine`](#patch-apimemberscredentialsmine) | Egy tag felhasználónevének/jelszavának módosítása. |
+| `PATCH` | [`/api/members/me/credentials`](#patch-apimembersmecredentials) | Egy tag e-mail címének, felhasználónevének vagy jelszavának módosítása. |
 | `PATCH` | [`/api/members/{id}`](#patch-apimembersid) | Egy tag adatainak módosítása. |
 | `PATCH` | [`/api/members/me`](#patch-apimembersme) | Egy tag ezen keresztül tudja módosítani a saját adatait. |
 | `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid) | Egyesületvezető jog átruházása. |
@@ -43,16 +38,19 @@
 
 Az autentikáció [Json Web Token](https://jwt.io/)-ek (JWT) által történik.
 A webalkalmazás esetében a JWT **sütiben** van eltárolva,
-a natív alkalmazások viszont a token-t egy `x-auth-token` http fejlécben kell elküldjék.
-Ezért azon végpontoknál, ahol a `x-auth-token` fejléc elvártnak van jelölve,
+a natív alkalmazások viszont a token-t egy `x-plander-auth` http fejlécben kell elküldjék.
+Ezért azon végpontoknál, ahol a `x-plander-auth` fejléc elvártnak van jelölve,
 ott ez csak a natív alkalmazásokra vonatkozik,
 hiszen a webböngésző automatikusan elküldi a **sütiben** tárolt JWT-t.
+
+> **!!!** A fenti leírásban az eredeti elképzelés van megfogalmazva. A későbbiekben azonban úgy döntöttünk,
+> hogy a token nem lesz sütiben tárolva. Ennek az oka a "third-party" sütik állítólagos megszüntetése
+> [lásd itt](https://developers.google.com/privacy-sandbox/3pcd). **!!!**
 
 **Speciális esetek, amikor nem JWT-nel történik az autentikáció**:
 
 - Amikor egy meghívott tag regisztrál (ilyenkor az email-ben küldött URL-ben található **regisztrációs token**-nel történik a hitelesítés)
 - Egy tag elfelejtett jelszavának megváltoztatásakor (ilyenkor az email-ben küldött URL-ben található **helyreállítási token**-nel történik a hitelesítés)
-- Egy tag új email-címének módosításakor (ilyenkor az email-ben küldött URL-ben található **verifikációs token**-nel történik a hitelesítés)
 
 ### `POST` `/api/auth`
 
@@ -64,40 +62,46 @@ Content-Type: `application/json`
 - `associationId*`: a szervezet azonosítója
 - `user*`: a felhasználónév vagy email cím
 - `password*`: a tag jelszava
-- `isAutoLogin`: opcionális logikai érték; akkor `true`, ha a felhasználó automatikus bejelentkezést akar később (ez csak a webalkalmazás esetén releváns)
 
 **A válasz formátuma:**
 
-- Ha az autentikáció sikerült, akkor a szerver a token-t **sütiben** visszaküldi
-- Annak érdekében, hogy a token-t natív alkalmazások is el tudják tárolni a későbbi kommunikáció érdekében,
-  a JWT a **válasz törzsében is megtalálható**
+- A `token` az `x-plander-auth` fejlécben van biztosítva
+- A válasz törzsében a bejelentkezett tag adatai kerülnek vissza
 
 Pl.:
 
 ```rest
 POST /api/auth
-Content-Type: application/json
 
 {
   "associationId": "652f7b95fc13ae3ce86c7cdf",
   "user": "ccolebeck0",
-  "password": "mypassword23",
-  "isAutoLogin": false
+  "password": "mypassword23"
 }
 ```
 
-A válasz formátuma:
+A válasz:
 
-- Content-Type: `application/json`
-- Set-Cookie: `plander_auth=eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo; SameSite=Lax; HttpOnly`
-
-```json
-"eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo"
 ```
+Content-Type: `application/json`
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 
-### `POST` `/api/logout`
-
-**Csak webalkalmazás esetén releváns:** a token sütijét törli.
+{
+  "_id": "652f866cfc13ae3ce86c7ce7",
+  "isRegistered": true,
+  "email": "bverchambre0@alibaba.com",
+  "username": "gizaac0",
+  "name": "Reizinger Szabolcs",
+  "address": "Hungary, 7300 PillaFalva Maniel utca 12.",
+  "idNumber": "589376QN",
+  "phoneNumber": "+86 (120) 344-7474",
+  "guardNumber": "08/0019/161373",
+  "roles": [
+    "member",
+    "president"
+  ]
+}
+```
 
 ## Associations (Egyesületek)
 
@@ -135,7 +139,7 @@ A válasz formátuma:
         "_id": "652f7b95fc13ae3ce86c7cdf",
         "name": "Baráti Polgárõr Egyesület",
         "location": "9081 Győrújbarát Fő u. 1",
-        "officialIdentifier": "08/0001"
+        "certificate": "08/0001"
     },
     ... 4 more items ...
   ]
@@ -169,7 +173,7 @@ A válasz formátuma:
   "_id": "652f7b95fc13ae3ce86c7cdf",
   "name": "Baráti Polgárõr Egyesület",
   "location": "9081 Győrújbarát Fő u. 1",
-  "officialIdentifier": "08/0001"
+  "certificate": "08/0001"
 }
 ```
 
@@ -179,13 +183,13 @@ Az adott tag egyesületének adatainak lekérdezése. (_Gyakorlatilag egy egysze
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 Pl.:
 
 ```rest
 GET /api/associations/mine
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 ```
 
 A válasz formátuma:
@@ -195,7 +199,7 @@ A válasz formátuma:
   "_id": "652f7b95fc13ae3ce86c7cdf",
   "name": "Baráti Polgárõr Egyesület",
   "location": "9081 Győrújbarát Fő u. 1",
-  "officialIdentifier": "08/0001"
+  "certificate": "08/0001"
 }
 ```
 
@@ -205,14 +209,14 @@ A válasz formátuma:
 
 - `_id`
 - `username`
-- `officialIdentifier` (csak `manager` ranggal)
+- `guardNumber` (csak `president` ranggal)
 - `name`
-- `address` (csak `manager` ranggal)
-- `idNumber` (csak `manager` ranggal)
+- `address` (csak `president` ranggal)
+- `idNumber` (csak `president` ranggal)
 - `email`
 - `phoneNumber`
 - `roles`
-- `isVerified` (ez a jellemző ugyan látható, de a nem megerősített tagok csak a `manager` ranggal rendelkezők számára jelennek meg)
+- `isRegistered` (ez a jellemző ugyan látható, de a nem megerősített tagok csak a `president` ranggal rendelkezők számára jelennek meg)
 
 ### `GET` `/api/members`
 
@@ -220,14 +224,14 @@ Az adott tag egyesületébe tartozó összes tag lekérdezése.
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 **Query parameters:**
 
 - `offset` - elhagyandó dokumentumok száma (alapértelmezett: 0)
 - `limit` - maximum megjelenítendő dokumentumok száma (alapértelmezett: 10, maximum: 40)
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isRegistered` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 - `orderBy`: a mező neve, ami alapján a dokumentumokat rendezni kívánjuk, a csökkenő sorrendet `-` karakter jelöli (alapértelmezett: `name`)
 - `q`: a `name` mező alapján való keresés (_case-insensitive_)
@@ -236,7 +240,7 @@ Pl.:
 
 ```rest
 GET /api/members?offset=10&limit=5&projection=lite&orderBy=name
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 ```
 
 A válasz formátuma:
@@ -255,8 +259,8 @@ A válasz formátuma:
     "name": "András Kovács",
     "email": "ahilhouse0@disqus.com",
     "phoneNumber": "+34 (829) 635-5692",
-    "isVerified": true,
-    "roles": ["member", "manager"]
+    "isRegistered": true,
+    "roles": ["member", "president"]
     }
     ... 4 more items ...
   ]
@@ -273,12 +277,12 @@ Egy adott tag adatainak lekérése az azonosítója alapján.
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 **Query parameters:**
 
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isRegistered` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 
 Ha a megjelenítendő tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az adatai nem kérhetőek le.
@@ -289,7 +293,7 @@ Pl.:
 
 ```rest
 GET /api/members/652f85c4fc13ae3d596c7cdf?projection=lite
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 ```
 
 A válasz formátuma:
@@ -301,8 +305,8 @@ A válasz formátuma:
   "name": "András Kovács",
   "email": "ahilhouse0@disqus.com",
   "phoneNumber": "+34 (829) 635-5692",
-  "isVerified": true,
-  "roles": ["member", "manager"]
+  "isRegistered": true,
+  "roles": ["member", "president"]
 }
 ```
 
@@ -320,12 +324,12 @@ Egy adott tag adatainak lekérése a felhasználóneve alapján.
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 **Query parameters:**
 
 - `projection`
-  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isVerified` és `roles` mezők megjelenítése
+  - `lite` (alapértelmezett): csak az `_id`, `username`, `name`, `email`, `phoneNumber`, `isRegistered` és `roles` mezők megjelenítése
   - `full`: az összes (a tag által megtekinthető, lsd: [fent](#egy-tag-által-megtekinthető-más-tagok-adatai)) mező megjelenítése
 
 Mivel a tag felhasználóneve csak az egyesületen belül egyedi, a kérés küldője (akit a _token_ azonosít) ugyanabba az egyesületbe kell tartozzon, különben az adatok nem kérhetőek le.
@@ -336,7 +340,7 @@ Pl.:
 
 ```rest
 GET /api/members/username/ccolebeck0?projection=lite
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 ```
 
 A válasz formátuma:
@@ -348,33 +352,10 @@ A válasz formátuma:
   "name": "András Kovács",
   "email": "ahilhouse0@disqus.com",
   "phoneNumber": "+34 (829) 635-5692",
-  "isVerified": true,
-  "roles": ["member", "manager"]
+  "isRegistered": true,
+  "roles": ["member", "president"]
 }
 ```
-
-### `GET` `/api/members/exists/username/{associationId}/{username}`
-
-Ezen a végponton keresztül egyszerűen le lehet ellenőrizni, hogy az adott felhasználónév az egyesületen belül elérhető vagy nem.
-
-**Parameters:**
-
-- `associationId` - egyesület azonosítója
-- `username` - az ellenőrizni kívánt felhasználónév
-
-Pl.:
-
-```rest
-GET /api/members/exists/username/652f7b95fc13ae3ce86c7cdf/exampleUsrName1
-```
-
-A válasz formátuma:
-
-```json
-false
-```
-
-_Egyszerű json `boolean` értékkel._
 
 ### `GET` `/api/members/register/{id}/{registrationToken}`
 
@@ -400,7 +381,7 @@ A válasz formátuma:
   "_id": "652f85c4fc13ae3d596c7cde",
   "associationId": "652f7b95fc13ae3ce86c7cdf",
   "email:": "member@example.com",
-  "isVerified": false
+  "isRegistered": false
 }
 ```
 
@@ -413,13 +394,13 @@ tudják **meghívni** a további tagokat.
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
 
 - `email*`
-- _`officialIdentifier`_
+- _`guardNumber`_
 - _`name`_
 - _`address`_
 - _`idNumber`_
@@ -436,7 +417,7 @@ Pl.:
 ```rest
 POST /api/members/
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 
 {
   "email:": "member@example.com"
@@ -451,7 +432,7 @@ Tartalom: [A beillesztett rekord]
 {
   "_id": "652f85c4fc13ae3d596c7cde",
   "email:": "member@example.com",
-  "isVerified": false
+  "isRegistered": false
 }
 ```
 
@@ -471,7 +452,7 @@ Content-Type: `application/json`
 
 - _`username_`\*
 - _`password_`\*
-- _`officialIdentifier`_
+- _`guardNumber`_
 - _`name_`\*
 - _`address_`\*
 - _`idNumber_`\*
@@ -486,7 +467,7 @@ Content-Type: application/json
 {
   "username": "superguard01",
   "password": "SuperSafe@41a",
-  "officialIdentifier": "4148009",
+  "guardNumber": "4148009",
   "name": "Horváth Csaba",
   "address": "9029 Csontvár Sonka Utca 5.",
   "idNumber": "594771CQ",
@@ -501,12 +482,12 @@ A válasz formátuma:
   "_id": "652f85c4fc13ae3d596c7cde",
   "email:": "member@example.com",
   "username": "superguard01",
-  "officialIdentifier": "4148009",
+  "guardNumber": "4148009",
   "name": "Horváth Csaba",
   "address": "9029 Csontvár Sonka Utca 5.",
   "idNumber": "594771CQ",
   "phoneNumber": "+256 (776) 361-0286",
-  "isVerified": true
+  "isRegistered": true
 }
 ```
 
@@ -569,107 +550,17 @@ Content-Type: application/json
 }
 ```
 
-?: A válasz formátuma
+A válasz formátuma:  
+Status: `204`
 
-### `PATCH` `/api/members/email/{id}`
+### `PATCH` `/api/members/me/credentials`
 
-A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket, illetve az **egyesületvezetők** ezen a végponton keresztül tudják megváltoztatni a még nem megerősített (csak meghívott) tagok e-mail címét.
-
-**Parameters:**
-
-- `id` - a módosítandó tag azonosítója
+A tagok ezen a végponton keresztül tudják megváltoztatni a felhasználónevüket és/vagy e-mail címüket, illetve jelszavukat.
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
-
-A végpont működéséről a következőket mondhatjuk el:
-
-- Ha a módosítandó tag létezik az azonosítója alapján, **de nem ugyanabba az egyesületbe tartozik**, mint a kérés küldője (akit a _token_ azonosít), akkor az e-mail címe nem módosítható.
-
-- Ha a kérés küldője **nem egyesületvezető**, egy **másik tag** e-mail címét **nem módosíthatja**.
-
-- A kérés küldője a saját e-mail címét módosíthatja (ebben az esetben a saját _id_-t adja meg).
-
-- Ha egy tag meg akarja változtatni a saját e-mail címét, **az e-mail cím nem fog azonnal frissülni** az adatbázisban, csak miután a tag megnyitja az új e-mail címre kapott **verifikációs linket**.
-
-- Ha a kérés küldője **egyesületvezető**, **csak megerősítetlen** (`unverified`) tag e-mail címét módosíthatja.
-
-- Ha egy **egyesületvezető** megváltoztatja egy megerősítetlen tag **e-mail címét**, újabb regisztrációs levél kerül kézbesítésre.
-
-**Kérés formátuma:**  
-Content-Type: `application/json`
-
-- `email*`
-
-Pl.:
-
-```rest
-PATCH /api/members/email/652f85c4fc13ae3d596c7cde
-Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-
-{
-  "email": "newemail@example.com"
-}
-```
-
-A válasz formátuma:
-
-```json
-{
-  "_id": "652f85c4fc13ae3d596c7cde"
-}
-```
-
-### `PATCH` `/api/members/email/mine`
-
-A tagok ezen a végponton keresztül tudják megváltoztatni az e-mail címüket. (_Gyakorlatilag egy egyszerűsített változata az [előzőleg bemutatott végpontnak](#patch-apimembersemailid), de ez a token-ből nyeri ki az id-t._)
-
-### `PATCH` `/api/members/email/{id}/{verificationToken}`
-
-A tagok ezen a végponton keresztül tudják véglegesíteni a megváltoztatott e-mail címet. Az e-mail cím valójában csak ekkor fog megváltozni az adatbázisban.  
-Tipikusan azután lesz ez a végpont meghívva, amiután a tag megnyitotta az e-mail címére kapott **verifikációs linket**.
-
-**Parameters:**
-
-- `id` - a módosítandó tag azonosítója
-- `verificationToken` - a verifikációs token
-
-**Kérés formátuma:**  
-Habár ez egy patch kérés, a **törzsben semmit sem kell küldeni.**
-
-Pl.:
-
-```rest
-PATCH /api/members/email/652f85c4fc13ae3d596c7cde/rbzdaewl4tc74xiu5tdd
-```
-
-A válasz formátuma:
-
-```json
-{
-  "_id": "652f85c4fc13ae3d596c7cde",
-  "associationId": "652f7b95fc13ae3ce86c7cdf",
-  "username": "gizaac0",
-  "officialIdentifier": "4148009",
-  "name": "Horváth Csaba",
-  "address": "929 Brentwood Hill",
-  "idNumber": "594771CQ",
-  "email": "newemail@example.com",
-  "phoneNumber": "+256 (776) 361-0286",
-  "roles": ["member", "manager"]
-}
-```
-
-### `PATCH` `/api/members/credentials/mine`
-
-A tagok ezen a végponton keresztül tudják megváltoztatni a felhasználónevüket és/vagy e-mail címüket.
-
-**Required http headers:**
-
-- `x-auth-token` - a tagot azonosító token
-- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
+- `x-plander-auth` - a tagot azonosító token
+- `x-current-pass` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
 
 **Kérés formátuma:**  
 Content-Type: `application/json`
@@ -684,8 +575,8 @@ Pl.:
 ```rest
 PATCH /api/members/credentials/652f85c4fc13ae3d596c7cde
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-x-auth-password: OldPassword123
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-current-pass: OldPassword123
 
 {
   "password": "NewPassword"
@@ -711,7 +602,7 @@ Egy **egyesületvezető** ezen a végponton keresztül tudja módosítani a **me
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
+- `x-plander-auth` - a tagot azonosító token
 
 A végpont működéséről a következőket mondhatjuk el:
 
@@ -733,7 +624,7 @@ Content-Type: `application/json`
 
 - _`username`_
 - _`password`_
-- _`officialIdentifier`_
+- _`guardNumber`_
 - _`name`_
 - _`address`_
 - _`idNumber`_
@@ -745,7 +636,7 @@ Pl.:
 ```rest
 PATCH /api/members/652f85c4fc13ae3d596c7cde
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
 
 {
   "address": "7200 Igazváros Valóság Utca 5",
@@ -761,12 +652,12 @@ A válasz formátuma:
   "_id": "652f85c4fc13ae3d596c7cde",
   "email:": "member@example.com",
   "username": "superguard01",
-  "officialIdentifier": "4148009",
+  "guardNumber": "4148009",
   "name": "Horváth Csaba",
   "address": "7200 Igazváros Valóság Utca 5",
   "idNumber": "1232IQ",
   "phoneNumber": "+1020113301",
-  "isVerified": true
+  "isRegistered": true
 }
 ```
 
@@ -776,7 +667,7 @@ Egy tag ezen keresztül tudja módosítani a saját adatait. (_Gyakorlatilag egy
 
 ### `PATCH` `/api/members/transfer-my-roles/{id}`
 
-Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot _egyesületvezető ranggal_ (`manager`).
+Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű tag*ot _egyesületvezető ranggal_ (`president`).
 
 **Parameters:**
 
@@ -788,8 +679,8 @@ Az **egyesületvezető** ezen a végponton keresztül tud felruházni *egyszerű
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
-- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
+- `x-plander-auth` - a tagot azonosító token
+- `x-current-pass` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
 
 A végpont működéséről a következőket mondhatjuk el:
 
@@ -802,8 +693,8 @@ Pl.:
 ```rest
 PATCH /api/members/transfer-my-roles/652f85c4fc13ae3d596c7cde
 Content-Type: application/json
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-x-auth-password: SuperSafe123
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-current-pass: SuperSafe123
 ```
 
 A válasz formátuma:
@@ -811,7 +702,7 @@ A válasz formátuma:
 ```json
 {
   "_id": "652f85c4fc13ae3d596c7cde",
-  "roles": ["member", "manager"]
+  "roles": ["member", "president"]
 }
 ```
 
@@ -827,8 +718,8 @@ Az **egyesületvezető** ezen a végponton keresztül tudja eltávolítani az ad
 
 **Required http headers:**
 
-- `x-auth-token` - a tagot azonosító token
-- `x-auth-password` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
+- `x-plander-auth` - a tagot azonosító token
+- `x-current-pass` - **mivel ez egy kockázatos művelet, az aktuális jelszó újbóli megadása kötelező, a token nem elég**
 
 A végpont működéséről a következőket mondhatjuk el:
 
@@ -839,8 +730,8 @@ Pl.:
 
 ```rest
 DELETE /api/members/652f85c4fc13ae3d596c7cde
-x-auth-token: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
-x-auth-password: SuperSafe123
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+x-current-pass: SuperSafe123
 ```
 
 A válasz formátuma:
@@ -850,12 +741,12 @@ A válasz formátuma:
   "_id": "652f85c4fc13ae3d596c7cde",
   "associationId": "652f7b95fc13ae3ce86c7ce3",
   "username": "lbaldery4",
-  "officialIdentifier": "9487701",
+  "guardNumber": "9487701",
   "name": "Váczi Károly",
   "address": "0 Marquette Hill",
   "idNumber": "866925HP",
   "email": "tbrucker4@umich.edu",
   "phoneNumber": "+84 (728) 209-0572",
-  "roles": ["member", "manager"]
+  "roles": ["member", "president"]
 }
 ```
