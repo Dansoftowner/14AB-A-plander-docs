@@ -34,6 +34,11 @@
 | `PATCH` | [`/api/members/transfer-my-roles/{id}`](#patch-apimemberstransfer-my-rolesid) | Egyesületvezető jog átruházása. |
 | `DELETE` | [`/api/members/{id}`](#delete-apimembersid) | Tagok törlése |
 
+[**Assignments (Beosztások)**](#assignments-beosztások)
+| | | |
+|----------|-------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `GET` | [`/api/assignments/`](#get-apiassignments) | Az adott tag egyesületébe tartozó összes beosztás lekérdezése. |
+
 ## Authentication (Autentikáció)
 
 Az autentikáció [Json Web Token](https://jwt.io/)-ek (JWT) által történik.
@@ -748,5 +753,59 @@ A válasz formátuma:
   "email": "tbrucker4@umich.edu",
   "phoneNumber": "+84 (728) 209-0572",
   "roles": ["member", "president"]
+}
+```
+
+## Assignments (Beosztások)
+
+### `GET` `/api/assignments`
+
+Egy tag ezen a végponton keresztül tudja lekérni az **egyesülethez tartozó** összes beosztást.
+
+**Required http headers:**
+
+- `x-plander-auth` - a tagot azonosító token
+
+**Query parameters:**
+
+- `start` - a dátum, amitől kezdve a beosztásokat látni akarjuk
+- `end` - a dátum, ameddig a beosztásokat látni akarjuk
+  > Ha a `start` és az `end` paraméter nincs megadva, akkor alapértelmezetten az aktuális hónap tartománya kerül alkalmazásra.
+- `projection`
+  - `lite` (alapértelmezett): csak az `_id`, `title`, `start` és `end` mezők megjelenítése
+  - `full`: az összes mező megjelenítése
+- `orderBy`: a mező neve, ami alapján a dokumentumokat rendezni kívánjuk, a csökkenő sorrendet `-` karakter jelöli (alapértelmezett: `start`)
+
+Pl.:
+
+```rest
+GET /api/assignments?start=2022-01-01&end=2022-01-20&projection=full
+x-plander-auth: eyJhbGciOiJIUzI1NiJ9.e30.ZRrHA1JJJW8opsbCGfG_HACGpVUMN_a9IV7pAx_Zmeo
+```
+
+A válasz:
+
+```json
+{
+  "metadata": {
+    "start": "2022-01-01",
+    "end": "2022-01-20"
+  },
+  "items": [
+    {
+      "_id": "652fc6f2fc13ae3c0c6c8ab5",
+      "title": "Főttcéklás laktanya őrzés",
+      "location": "Quisque porta volutpat erat.",
+      "start": "2022-01-02T09:06:36.000Z",
+      "end": "2022-01-02T10:06:36.000Z",
+      "assignees": [
+        {
+          "_id": "652f866cfc13ae3ce86c7ce7",
+          "name": "Horváth Csaba"
+        }
+      ]
+    },
+    ... (more items)
+  ]
 }
 ```
