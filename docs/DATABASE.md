@@ -158,12 +158,12 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
       így ha a tag később törölve is lesz a rendszerből, a beosztások visszatekinthetőek lesznek (akár évekig, ha szükséges)
     - Gyorsabb lekérdezéseket tesz lehetővé
 
-
 ### reports (Jelentések)
 
 - `_id`\*: ObjectId
-- `assignment`\* (Beosztás azonosító): String
-- `method`* (Szolgálat módja): String
+- `assignment`\* (Beosztás azonosító): ObjectId
+- `reporter`\* (A jelentés készítőjének azonosítója): ObjectId
+- `method`\* (Szolgálat módja): String
   - Lehetséges értékek: `vehicle` (Gépkocsi), `bicycle` (Kerékpár), `pedestrian` (Gyalogos)
 - `purpose`\* (Szolgálat célja): String
   - pl.: rendezvénybiztosítás, iskolaszolgálat, stb.
