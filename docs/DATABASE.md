@@ -177,5 +177,6 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
   - **Opcionális**, csak akkor van jelentősége ha a szolgálat során történt más külső szervvel együttműködés
 - `externalRepresentative` (Külső szerv képviselője): String
   - **Opcionális**, csak akkor van jelentősége ha a szolgálat során történt más külső szervvel együttműködés
+  - _De csak abban az esetben lehet meghatározva, ha a külső szerv neve is meg van adva!_
 - `description` (Rövid leírás): String
   - Maximum **1240** karakter
