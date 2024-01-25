@@ -145,7 +145,9 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 - `association`\* (Egyesületazonosító): ObjectId
   - **Külső kulcsként** szolgál az egyesület azonosítására.
 - `start`\* (Kezdés ideje): Date
+  - Korábbi időpont kell legyen mint az `end`
 - `end`\* (Befejezés ideje): Date
+  - Későbbi időpont kell legyen mint a `start`
 - `assignees` (Beosztott tagok): [Object]
   - A beosztott tagok beágyazott objektumokként vannak eltárolva egy tömbben
   - Ezek a beágyazott dokumentumok nem tartalmaznak az adott tagról minden információt
