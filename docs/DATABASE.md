@@ -157,3 +157,25 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
     - A beosztott tagokról el van tárolva egy pillanatkép (`snapshot`),
       így ha a tag később törölve is lesz a rendszerből, a beosztások visszatekinthetőek lesznek (akár évekig, ha szükséges)
     - Gyorsabb lekérdezéseket tesz lehetővé
+
+
+### reports (Jelentések)
+
+- `_id`\*: ObjectId
+- `assignmentId`\* (Beosztás azonosító): String
+- `method`* (Szolgálat módja): String
+  - Lehetséges értékek: `vehicle` (Gépkocsi), `bicycle` (Kerékpár), `pedestrian` (Gyalogos)
+- `purpose`\* (Szolgálat célja): String
+  - pl.: rendezvénybiztosítás, iskolaszolgálat, stb.
+- `licensePlateNumber` (Szolgálatot ellátó gépkocsi rendszáma): String
+  - **Opcionáls**, csak akkor van jelentősége ha a szolgálat módja `vehicle`
+- `startKm` (KM Óra állása induláskor): Number
+  - **Opcionális**, csak akkor van jelentősége ha a szolgálat módja `vehicle`
+- `endKm` (KM Óra állása befejezéskor): Number
+  - **Opcionális**, csak akkor van jelentősége ha a szolgálat módja `vehicle`
+- `externalOrganization` (Külső szerv neve): String
+  - **Opcionális**, csak akkor van jelentősége ha a szolgálat során történt más külső szervvel együttműködés
+- `externalRepresentative` (Külső szerv képviselője): String
+  - **Opcionális**, csak akkor van jelentősége ha a szolgálat során történt más külső szervvel együttműködés
+- `description` (Rövid leírás): String
+  - Maximum **1240** karakter
