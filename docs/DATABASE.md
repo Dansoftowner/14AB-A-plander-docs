@@ -162,7 +162,7 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 ### reports (Jelentések)
 
 - `_id`\*: ObjectId
-- `assignmentId`\* (Beosztás azonosító): String
+- `assignment`\* (Beosztás azonosító): String
 - `method`* (Szolgálat módja): String
   - Lehetséges értékek: `vehicle` (Gépkocsi), `bicycle` (Kerékpár), `pedestrian` (Gyalogos)
 - `purpose`\* (Szolgálat célja): String
