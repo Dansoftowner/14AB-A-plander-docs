@@ -180,3 +180,4 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
   - _De csak abban az esetben lehet meghatározva, ha a külső szerv neve is meg van adva!_
 - `description` (Rövid leírás): String
   - Maximum **1240** karakter
+- `submittedAt` (Jelentés elküldésének ideje): Date
