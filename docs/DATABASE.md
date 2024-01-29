@@ -157,11 +157,12 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
     - A beosztott tagokról el van tárolva egy pillanatkép (`snapshot`),
       így ha a tag később törölve is lesz a rendszerből, a beosztások visszatekinthetőek lesznek (akár évekig, ha szükséges)
     - Gyorsabb lekérdezéseket tesz lehetővé
+- `report` (Jelentés azonosítója): ObjectId
+    - Egyedi, mert egy jelentés csak egy beosztáshoz tartozhat
 
 ### reports (Jelentések)
 
 - `_id`\*: ObjectId
-- `assignment`\* (Beosztás azonosító): ObjectId
 - `reporter`\* (A jelentés készítőjének azonosítója): ObjectId
 - `method`\* (Szolgálat módja): String
   - Lehetséges értékek: `vehicle` (Gépkocsi), `bicycle` (Kerékpár), `pedestrian` (Gyalogos)
