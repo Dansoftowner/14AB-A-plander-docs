@@ -140,8 +140,10 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 **Mezők:**
 
 - `_id`\*: ObjectId
-- `title`\* (Esemény neve): String
-- `location`\* (Helyszín): String
+- `title` (Esemény neve): String
+  - Minimum 5, maximum 255 karakter
+- `location` (Helyszín): String
+  -  Minimum 2, maximum 255 karakter
 - `association`\* (Egyesületazonosító): ObjectId
   - **Külső kulcsként** szolgál az egyesület azonosítására.
 - `start`\* (Kezdés ideje): Date
