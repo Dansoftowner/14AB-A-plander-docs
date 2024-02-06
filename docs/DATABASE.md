@@ -165,7 +165,7 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 ### reports (Jelentések)
 
 - `_id`\*: ObjectId
-- `reporter`\* (A jelentés készítőjének azonosítója): ObjectId
+- `author`\* (A jelentés készítőjének azonosítója): ObjectId
 - `method`\* (Szolgálat módja): String
   - Lehetséges értékek: `vehicle` (Gépkocsi), `bicycle` (Kerékpár), `pedestrian` (Gyalogos)
 - `purpose`\* (Szolgálat célja): String
