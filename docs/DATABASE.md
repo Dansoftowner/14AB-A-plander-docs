@@ -205,4 +205,4 @@ Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
   - minimum: 1 karakter
   - maximum: 1024 karakter
 
-Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **1 hónap után törlődnek**.
+Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **30 nap után törlődnek**.
