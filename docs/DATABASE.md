@@ -119,6 +119,9 @@ Ez a kollekció tárolja a **regisztrációs token**eket, amelyek a regisztráci
 - `token`\*: String
   - A random generált token string.
   - Hash-elt formában van tárolva (BCrypt hash).
+- `createdAt`\* (token létrehozásának ideje): Date
+  - Arra szükséges, hogy a regisztrációs token bizonyos időtartam után (72 óra) kitörlődjön az adatbázisból
+    egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével
 
 ### _restorationTokens (Helyreállítási token-ek)_
 
@@ -132,6 +135,9 @@ Ez a kollekció tárolja a **helyreállítási token**eket, amelyek azon tagok a
 - `token`\*: String
   - A random generált token string.
   - Hash-elt formában van tárolva (BCrypt hash).
+- `createdAt`\* (token létrehozásának ideje): Date
+  - Arra szükséges, hogy a regisztrációs token bizonyos időtartam után (24 óra) kitörlődjön az adatbázisból
+    egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével
 
 ### assignments (Beosztások)
 
@@ -143,7 +149,7 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 - `title` (Esemény neve): String
   - Minimum 5, maximum 255 karakter
 - `location` (Helyszín): String
-  -  Minimum 2, maximum 255 karakter
+  - Minimum 2, maximum 255 karakter
 - `association`\* (Egyesületazonosító): ObjectId
   - **Külső kulcsként** szolgál az egyesület azonosítására.
 - `start`\* (Kezdés ideje): Date
@@ -160,9 +166,11 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
       így ha a tag később törölve is lesz a rendszerből, a beosztások visszatekinthetőek lesznek (akár évekig, ha szükséges)
     - Gyorsabb lekérdezéseket tesz lehetővé
 - `report` (Jelentés azonosítója): ObjectId
-    - Egyedi, mert egy jelentés csak egy beosztáshoz tartozhat
+  - Egyedi, mert egy jelentés csak egy beosztáshoz tartozhat
 
 ### reports (Jelentések)
+
+Ez a kollekció tárolja el a szolgálati jelentéseket.
 
 - `_id`\*: ObjectId
 - `author`\* (A jelentés készítőjének azonosítója): ObjectId
@@ -184,3 +192,17 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
 - `description` (Rövid leírás): String
   - Maximum **1240** karakter
 - `submittedAt` (Jelentés elküldésének ideje): Date
+
+### chatMessages (Csevegési üzenetek)
+
+Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
+
+- `_id`\*: ObjectId
+- `association`\* (Egyesület azonosítója): ObjectId
+- `sender`\* (Üzenet küldője): ObjectId
+- `timestamp`\* (Üzenet küldésének ideje): Date
+- `content`\* (Üzenet tartalma): String
+  - minimum: 1 karakter
+  - maximum: 1024 karakter
+
+Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **1 hónap után törlődnek**.
