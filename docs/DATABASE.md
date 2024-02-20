@@ -199,7 +199,12 @@ Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
 
 - `_id`\*: ObjectId
 - `association`\* (Egyesület azonosítója): ObjectId
-- `sender`\* (Üzenet küldője): ObjectId
+- `sender`\* (Üzenet küldője): Object
+  - a küldő tag egy beágyazott objektumként van eltárolva az adatbázisban
+  - Ez a beágyazott dokumentum nem tartalmaz az adott tagról minden információt
+    - Az `_id`-n kívül a `name` mező van eltárolva
+    - Egy beágyazott tag azonosítója refererál a `members` kollekcióban található tag azonosítójára
+  - A beágyazás gyorsabb lekérdezést tesz lehetővé
 - `timestamp`\* (Üzenet küldésének ideje): Date
 - `content`\* (Üzenet tartalma): String
   - minimum: 1 karakter
