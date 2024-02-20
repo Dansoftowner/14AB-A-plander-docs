@@ -93,7 +93,7 @@ Példa dokumentumok:
   "phoneNumber": "+256 (776) 361-0286",
   "guardNumber": "08/0001/009226",
   "roles": ["member", "manager"],
-  "preferences": { "ui.theme": "dark", "ui.language": "en_EN" }
+  "preferences": { "colorMode": "dark", "language": "hu" }
 }
 ```
 
@@ -167,6 +167,30 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
     - Gyorsabb lekérdezéseket tesz lehetővé
 - `report` (Jelentés azonosítója): ObjectId
   - Egyedi, mert egy jelentés csak egy beosztáshoz tartozhat
+  - Lehet `null` (ez azt jelenti, hogy nincs hozzá még jelentés)
+
+Példa dokumentum:
+```json
+{
+    "_id": "652fc6f2fc13ae3c0c6c8ab6",
+    "title": "Gyerkőcfesztivál járőrözés",
+    "location": "Győr, Széchenyi Tér 1.",
+    "association": "652f7b95fc13ae3ce86c7ce6",
+    "start": "2023-11-19T12:25:59.000Z",
+    "end": "2023-11-19T13:25:59.000Z",
+    "assignees": [
+      {
+        "_id": "652f866cfc13ae3ce86c7cee",
+        "name": "Fehér Attila"
+      },
+      {
+       "_id": "652f85c4fc13ae3d596c7ce1",
+       "name": "Gábor Tóth"
+      }
+    ],
+    "report": "653104dbfc13ae1d116c8130"
+}
+```
 
 ### reports (Jelentések)
 
@@ -190,8 +214,23 @@ Ez a kollekció tárolja el a szolgálati jelentéseket.
   - **Opcionális**, csak akkor van jelentősége ha a szolgálat során történt más külső szervvel együttműködés
   - _De csak abban az esetben lehet meghatározva, ha a külső szerv neve is meg van adva!_
 - `description` (Rövid leírás): String
+  - Ha történt valamilyen rendkívüli esemény, annak rövid leírása
   - Maximum **1240** karakter
 - `submittedAt` (Jelentés elküldésének ideje): Date
+
+Példa dokumentum:
+```json
+{
+    "_id": "653104dbfc13ae1d116c812f",
+    "author": "652f866cfc13ae3ce86c7ce7",
+    "method": "vehicle",
+    "purpose": "Gépjárműfelderítés",
+    "licensePlateNumber": "FGS-456",
+    "startKm": 292233,
+    "endKm": 292255,
+    "description": "A szolgálat során gyanús járművet észleltünk. Rendszáma: ABC-123.",
+}
+```
 
 ### chatMessages (Csevegési üzenetek)
 
@@ -209,5 +248,19 @@ Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
 - `content`\* (Üzenet tartalma): String
   - minimum: 1 karakter
   - maximum: 1024 karakter
+
+Példa dokumentum:
+```json
+{
+        "_id": "65310f87fc13ae1b326c905c",
+        "association": "652f7b95fc13ae3ce86c7ce6",
+        "sender": {
+            "_id": "652f866cfc13ae3ce86c7ce7",
+            "name": "Horváth Csaba"
+        },
+        "timestamp": "2023-02-18T10:55:10.000Z",
+        "content": "Üdvözlet! Akinek nem jó a jelenlegi beosztás, az jelezze!"
+}
+```
 
 Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **30 nap után törlődnek**.
