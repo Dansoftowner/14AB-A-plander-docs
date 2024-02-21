@@ -23,7 +23,10 @@ Természetesen tökéletes választás nem volt, de az alábbiakban ismertetjük
    - Mivel a backend Node.js környezetben fut, így eléggé kézenfekvő volt a MongoDB használata, ugyanis a MongoDB és a javascript kíválóan működik együtt.
 
 4. MongoDB Atlas: **megbízható, gyors felhőszolgáltatás**
-   - A [MongoDB Atlas](https://www.mongodb.com/atlas/database) felhőszolgáltatás nagyon könnyen használható, és az ingyenes verzió is nagyon jó lekérdezési idővel és tárhelykapacitással rendelkezik.
+   - A [MongoDB Atlas](https://www.mongodb.com/atlas/database) felhőszolgáltatás könnyen használható, konfigurálható, és az ingyenes verzió is nagyon jó lekérdezési idővel és tárhelykapacitással rendelkezik.
+
+5. Ki akartunk próbálni valami újat!
+   - Mivel az SQL világban az elmúlt évek során bőven volt tapasztalatunk, úgy éreztük, hogy itt az ideje valami újjal is bővíteni tudástárunkat.
 
 Hátrány volt viszont az, hogy a hivatkozási integritást, esetenként a kaszkádolt törlést manuálisan kellett lekezelni.
 
@@ -278,6 +281,8 @@ Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
   - minimum: 1 karakter
   - maximum: 1024 karakter
 
+Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **30 nap után törlődnek**.
+
 Példa dokumentum:
 
 ```json
@@ -293,6 +298,20 @@ Példa dokumentum:
 }
 ```
 
-Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **30 nap után törlődnek**.
+## Egyedkapcsolatok áttekintése
 
-
+- Egyesületek (**associations**) ~ Tagok (**members**): **1:N** (egy-a-többhöz)
+  - Egy egyesületbe több tag tartozik
+- Egyesületek (**associations**) ~ Szolgálati beosztások (**assignments**): **1:N** (egy-a-többhöz)
+  - Egy egyesülethez több szolgálat tartozik
+- Egyesületek (**associations**) ~ Csevegési üzenetek (**chatMessages**): **1:N** (egy-a-többhöz)
+  - Egy egyesülethez több csevegési üzenet tartozik
+- Tagok (**members**) ~ Szolgálati beosztások (**assignments**): **N:M** (több-a-többhöz)
+  - Egy tag több szolgálatra is be lehet osztva, és egy szolgálatban is több tag vehet részt
+- Tagok (**members**) ~ Szolgálati jelentések (**reports**): **1:N** (egy-a-többhöz)
+  - Egy tag több jelentést is készíthet
+- Tagok (**members**) ~ Csevegési üzenetek (**chatMessages**): **1:N** (egy-a-többhöz)
+  - Egy taghoz több chat üzenet tartozik
+- Szolgálati beosztások (**assignments**) ~ Szolgálati jelentések (**reports**): **1:1** (egy-az-egyhez)
+  - Egy szolgálathoz csak egy jelentés tartozhat
+  - Viszont lehet olyan, hogy egy szolgálathoz még nincs jelentés, ezért a kapcsolat **parciális**
