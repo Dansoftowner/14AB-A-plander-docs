@@ -2,7 +2,34 @@
 
 A Plander NoSQL (MongoDB) adatbázist használ az adatok tárolásához.
 
+### Miért döntöttünk a MongoDB mellett?
+
+Nyilvánvalóan minden szoftver más és más igényekkel rendelkezik. Több szempontot is mérlegeltünk, amikor adatbázist választottunk. Ezek között vannak kifejezetten gyakorlati, de egyéni megfontolások is. Végül a NoSQL világa mellett döntöttünk, és a MongoDB-t választottuk.
+
+Természetesen tökéletes választás nem volt, de az alábbiakban ismertetjük, miért gondoltuk úgy, hogy a MongoDB-t használjuk:
+
+1. **Beágyazott dokumentumok** lehetősége
+
+   - Segítségükkel több esetben **gyorsabb lekérdezések**et tudunk végrehajtani (pl.: a szolgálati beosztásoknál a beosztott tagokat, illetve a csevegési üzeneteknél a küldő tagot nem kell külön lekérdezni).
+   - Lehetőséget adnak **_pillanatkép_**ek (_snapshots_) készítésére: a rendszer tud rögzíteni korábbi információkat, anélkül, hogy figyelni kellene a külső kollekcíókban történő módosításokra (pl.: a szolgálati jelentéseknél eltároljuk a beosztott tagok néhány információját, így ha később a tag törlődik is, rögzítve marad az, hogy szolgált).
+     Ehhez egy relációs környezetben egy külön táblára lenne szükség.
+
+2. A "tömb" adattípus használatának lehetősége
+
+   - A "tömb" adattípus lehetővé teszi, hogy egy adott mezőben több értéket tároljunk. Ezáltal például sokkal könnyebb volt a különböző **rangok eltárolása**, valamint a **több-a-többhöz kapcsolat leképezése**.
+
+3. Könnyed Node.js integráció
+
+   - Mivel a backend Node.js környezetben fut, így eléggé kézenfekvő volt a MongoDB használata, ugyanis a MongoDB és a javascript kíválóan működik együtt.
+
+4. MongoDB Atlas: **megbízható, gyors felhőszolgáltatás**
+   - A [MongoDB Atlas](https://www.mongodb.com/atlas/database) felhőszolgáltatás nagyon könnyen használható, és az ingyenes verzió is nagyon jó lekérdezési idővel és tárhelykapacitással rendelkezik.
+
+Hátrány volt viszont az, hogy a hivatkozási integritást, esetenként a kaszkádolt törlést manuálisan kellett lekezelni.
+
 ## Kollekciók
+
+![Adatbázi model](assets/database-diagram.png)
 
 ### associations (Egyesületek)
 
@@ -170,25 +197,26 @@ Ez a kollekció tárolja el a beosztásokat (naptári eseményeket, amelyeken mi
   - Lehet `null` (ez azt jelenti, hogy nincs hozzá még jelentés)
 
 Példa dokumentum:
+
 ```json
 {
-    "_id": "652fc6f2fc13ae3c0c6c8ab6",
-    "title": "Gyerkőcfesztivál járőrözés",
-    "location": "Győr, Széchenyi Tér 1.",
-    "association": "652f7b95fc13ae3ce86c7ce6",
-    "start": "2023-11-19T12:25:59.000Z",
-    "end": "2023-11-19T13:25:59.000Z",
-    "assignees": [
-      {
-        "_id": "652f866cfc13ae3ce86c7cee",
-        "name": "Fehér Attila"
-      },
-      {
-       "_id": "652f85c4fc13ae3d596c7ce1",
-       "name": "Gábor Tóth"
-      }
-    ],
-    "report": "653104dbfc13ae1d116c8130"
+  "_id": "652fc6f2fc13ae3c0c6c8ab6",
+  "title": "Gyerkőcfesztivál járőrözés",
+  "location": "Győr, Széchenyi Tér 1.",
+  "association": "652f7b95fc13ae3ce86c7ce6",
+  "start": "2023-11-19T12:25:59.000Z",
+  "end": "2023-11-19T13:25:59.000Z",
+  "assignees": [
+    {
+      "_id": "652f866cfc13ae3ce86c7cee",
+      "name": "Fehér Attila"
+    },
+    {
+      "_id": "652f85c4fc13ae3d596c7ce1",
+      "name": "Gábor Tóth"
+    }
+  ],
+  "report": "653104dbfc13ae1d116c8130"
 }
 ```
 
@@ -219,16 +247,17 @@ Ez a kollekció tárolja el a szolgálati jelentéseket.
 - `submittedAt` (Jelentés elküldésének ideje): Date
 
 Példa dokumentum:
+
 ```json
 {
-    "_id": "653104dbfc13ae1d116c812f",
-    "author": "652f866cfc13ae3ce86c7ce7",
-    "method": "vehicle",
-    "purpose": "Gépjárműfelderítés",
-    "licensePlateNumber": "FGS-456",
-    "startKm": 292233,
-    "endKm": 292255,
-    "description": "A szolgálat során gyanús járművet észleltünk. Rendszáma: ABC-123.",
+  "_id": "653104dbfc13ae1d116c812f",
+  "author": "652f866cfc13ae3ce86c7ce7",
+  "method": "vehicle",
+  "purpose": "Gépjárműfelderítés",
+  "licensePlateNumber": "FGS-456",
+  "startKm": 292233,
+  "endKm": 292255,
+  "description": "A szolgálat során gyanús járművet észleltünk. Rendszáma: ABC-123."
 }
 ```
 
@@ -250,17 +279,20 @@ Ez a kollekció tárolja el az egyesületek üzenőfalainak üzeneteit.
   - maximum: 1024 karakter
 
 Példa dokumentum:
+
 ```json
 {
-        "_id": "65310f87fc13ae1b326c905c",
-        "association": "652f7b95fc13ae3ce86c7ce6",
-        "sender": {
-            "_id": "652f866cfc13ae3ce86c7ce7",
-            "name": "Horváth Csaba"
-        },
-        "timestamp": "2023-02-18T10:55:10.000Z",
-        "content": "Üdvözlet! Akinek nem jó a jelenlegi beosztás, az jelezze!"
+  "_id": "65310f87fc13ae1b326c905c",
+  "association": "652f7b95fc13ae3ce86c7ce6",
+  "sender": {
+    "_id": "652f866cfc13ae3ce86c7ce7",
+    "name": "Horváth Csaba"
+  },
+  "timestamp": "2023-02-18T10:55:10.000Z",
+  "content": "Üdvözlet! Akinek nem jó a jelenlegi beosztás, az jelezze!"
 }
 ```
 
 Az üzenetek egy [TTL index](https://www.mongodb.com/docs/manual/core/index-ttl/) segítségével **30 nap után törlődnek**.
+
+
